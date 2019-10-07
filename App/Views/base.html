@@ -1,29 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>  
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/styles.css" />
+    {% block head %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link href="/css/styles.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" type="text/css" media="all" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700&subset=latin,latin-ext">
+    {% endblock %}
 </head>
 <body>
-    
+    <!--###############################-->
+    <!-- MENU GÓRNE ###################-->
+    <!--###############################-->
+{% if not current_user %}
+   <header> 
     <div class = "container">
-        
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default fixed-top">
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
-                    <li><a href="/">Home</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {% if current_user %}
-                        <li><a href="/profile/show">Profile</a></li>
-                        <li><a href="/logout">Log out</a></li>                                
-                    {% endif %}
+                    <li><a href="/"><img src="{{ base_path ~ directory }}/images/logo.png" alt="brand_logo" class="img-responsive"></a></li>
                 </ul>
             </div>
-        </nav>
+         </nav>
+       </div>
+    </header>
+    
+                    
+     {% elseif current_user %}               
+                    
+    <header>   
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
 
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#moje-menu">
+                <span class="sr-only">Nawigacja</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/"><img src="{{ base_path ~ directory }}/images/logo.png" class="img-responsive" alt=""></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="moje-menu">
+              <ul class="nav navbar-nav mr-auto">
+                <li class="pull-left nav-item"><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li><a class="nav-link" href="przychod.html"><span class="glyphicon glyphicon-plus"></span> Dodaj przychód</a></li>
+                <li class="nav-item"><a class="nav-link" href="wydatek.html"><span class="glyphicon glyphicon-minus"></span> Dodaj wydatek</a></li>
+                <li class="nav-item"><a class="nav-link" href="bilans.html"><span class="glyphicon glyphicon-usd"></span> Przeglądaj bilans</a></li>
+                <li class="nav-item"><a class="nav-link" href="/profile/show"><span class="glyphicon glyphicon-wrench"></span> Profil</a></li> 
+                <li class="nav-item social pull-right"><a class="nav-link" href="/logout"><span class="glyphicon glyphicon-off"></span> Wyloguj się</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>  
+    </header>       
+                            
+    {% endif %}
+        
         {% for message in flash_messages %}
             <!-- <div class="alert"> -->
             <div class="alert alert-{{ message.type }}">
@@ -35,11 +72,17 @@
         {% endblock %}
         
     </div>
-
+    
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
-
+    <!--###############################-->
+    <!-- STOPKA ###################-->
+    <!--###############################-->
     {% block footer %}
+        <div id = "stopka" class="navbar navbar-fixed-bottom">                     
+            <h4>Copyright 2019 &copy; Budgety.pl</h4>
+        </div>
     {% endblock %}
 </body>
 </html>
