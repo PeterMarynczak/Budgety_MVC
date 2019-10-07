@@ -1,5 +1,127 @@
+/*###############*/
+/* Główne*/
+/*###############*/
+
 body {
     margin-top: 3em;
+    font-family: 'Open Sans';
+    color: #34495e;
+    background-color: #ffffff;
+    padding-bottom: 70px;
+}
+
+/*###############*/
+/* Menu górne*/
+/*###############*/
+
+.navbar{
+background-color: #dfe6e9;
+font-size: 1.7rem;
+color: #34495e;
+padding-top: 0.5rem;
+}
+
+.navbar-nav {
+width: 100%;
+text-align: center;
+}
+
+.navbar-nav > li {
+  float: none;
+  display: inline-block;
+}
+
+.navbar-outer{
+width: 1200px;
+}
+
+.navbar-default .navbar-nav > li > a{
+color: #34495e;
+margin-left: 5px;
+border: 1px solid transparent;
+line-height: 1rem;
+}
+
+.navbar-default .navbar-nav > li > a:hover{
+display: block;
+color: #fc4349;
+border: 1px solid transparent;
+border-color: #fc4349;
+line-height: 1rem;
+border-radius: 4px;
+transition: all 0.7s ease;
+}
+
+.navbar-default .navbar-nav > .active > a{
+display: block;
+border-color: #ffffff;
+background-color: #DADFE1;
+border-radius: 4px;
+}
+
+.navbar-default .navbar-nav > .active > a:hover{
+color: #fc4349;
+background-color: #34495E;
+}
+
+.navbar-default .navbar-nav > .active > a:focus{
+background-color: #34495E;
+}
+
+/*###############*/
+/*Buttons*/
+/*###############*/
+#log-reg {
+    color: black;
+    background-color: burlywood;
+}
+#log-reg:hover {
+    color: white;
+    background-color: dimgrey;
+}
+
+/*###############*/
+/* Efekt Carousel*/
+/*###############*/
+
+#pokaz-slajdow{
+padding-top: 4rem;
+margin-left: 4rem;
+margin-right: 4rem;
+}
+
+.carousel .item {
+width: 100%;
+max-height: 500px;
+}
+
+
+.carousel .item img {
+width: 100%;
+}
+
+.carousel .carousel-control{
+background: none;
+border: none;
+top: 50%;
+}
+
+.carousel-caption{
+top: 100px;
+bottom: auto;
+}
+
+.carousel-caption h1{
+text-transform: uppercase;
+font-weight: 600;
+line-height: 8rem;
+color: #ffffff;
+}
+
+.carousel-caption p{
+font-size: 2.5rem;
+font-weight: 300;
+color: #ffffff;
 }
 /*
 .alert {
@@ -16,3 +138,79 @@ body {
     background-color: #fcf8e3;
 }
 */
+/*###############*/
+/* Stopka*/
+/*###############*/
+
+#stopka{
+text-align: center;
+background-color: #ebf5ef;
+color: #ffffff;	
+}
+
+#stopka h4{
+color: #000;	
+font-size: 80%;
+}
+
+
+/*###############*/
+/* Responsywność*/
+/*###############*/
+
+@media(min-width: 1200px){
+	html{
+		font-size: 50%;
+		line-height: 1.2rem;
+	}
+    #stopka img{
+        height: 3%;
+        width: 3%;
+    }
+    .table-responsive{
+        font-size: 1.1rem;
+    }
+}
+
+@media(min-width: 992px) and (max-width: 1199px){
+	html{
+		font-size: 40%;
+		line-height: 1.2rem;
+	}
+    #stopka img{
+        height: 5%;
+        width: 5%;
+    }
+    .table-responsive{
+        font-size: 1.1rem;
+    }
+}
+
+@media(min-width: 768px) and (max-width: 991px){
+	html{
+		font-size: 40%;
+		line-height: 1.2rem;
+	}
+    #stopka img{
+        height: 5%;
+        width: 5%;
+    }
+}
+
+
+@media(max-width: 767px){
+    .carousel-caption h1,
+	.carousel-caption p{
+		font-size: 1.5rem;
+		line-height: 2.5rem;
+	}
+
+	.block{
+		margin-left: -20px;
+		margin-right: -20px;
+	}
+    #stopka img{
+        height: 4%;
+        width: 4%;
+    }
+}
