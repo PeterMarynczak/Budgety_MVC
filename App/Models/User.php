@@ -371,7 +371,8 @@ class User extends \Core\Model
         $text = View::getTemplate('Signup/activation_email.txt', ['url' => $url]);
         $html = View::getTemplate('Signup/activation_email.html', ['url' => $url]);
 
-        Mail::sendLabEmail($this->email, 'Password reset', $text, $html);
+        Mail::sendLabEmail($this->email, 'Aktywacja konta', $text, $html);
+        
     }
 
     /**
@@ -385,10 +386,40 @@ class User extends \Core\Model
     {
         $token = new Token($value);
         $hashed_token = $token->getHash();
+        
+        $sql = 'INSERT INTO payment_methods_assigned_to_users (user_id, name)
+        SELECT u.id, p.name 
+        FROM users u, payment_methods_default p WHERE u.activation_hash = :hashed_token';
+                
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':hashed_token', $hashed_token, PDO::PARAM_STR);
 
+        $stmt->execute();
+        
+        $sql = 'INSERT INTO expenses_category_assigned_to_users (user_id, name)
+        SELECT u.id, p.name 
+        FROM users u, expenses_category_default p WHERE u.activation_hash = :hashed_token';
+                
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':hashed_token', $hashed_token, PDO::PARAM_STR);
+
+        $stmt->execute();
+        
+        $sql = 'INSERT INTO incomes_category_assigned_to_users (user_id, name)
+        SELECT u.id, p.name 
+        FROM users u, incomes_category_default p WHERE u.activation_hash = :hashed_token';
+                
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':hashed_token', $hashed_token, PDO::PARAM_STR);
+
+        $stmt->execute();
+        
         $sql = 'UPDATE users
                 SET is_active = 1,
-                    activation_hash = null
+                activation_hash = null   
                 WHERE activation_hash = :hashed_token';
 
         $db = static::getDB();
