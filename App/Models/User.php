@@ -416,7 +416,7 @@ class User extends \Core\Model
         $stmt->bindValue(':hashed_token', $hashed_token, PDO::PARAM_STR);
 
         $stmt->execute();
-        
+         
         $sql = 'UPDATE users
                 SET is_active = 1,
                 activation_hash = null   

@@ -15,6 +15,7 @@
     <!--###############################-->
     <!-- MENU GÓRNE ###################-->
     <!--###############################-->
+    
 {% if not current_user %}
    <header> 
        <nav class="navbar navbar-default navbar-fixed-top">
@@ -25,12 +26,18 @@
             </div>
        </nav>
     </header>
+{% for message in flash_messages %}
+    <!-- <div class="alert"> -->
+    <div class="alert alert-{{ message.type }}" style="margin-top: 75px; margin-bottom: 3px">
+        {{ message.body }}
+    </div>
+{% endfor %}
     
                     
      {% elseif current_user %}               
                     
     <header>   
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default navbar-fixed-top">
           <div class="container-fluid">
 
             <div class="navbar-header">
@@ -54,20 +61,21 @@
               </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
-        </nav>  
+        </nav> 
+        {% for message in flash_messages %}
+    <!-- <div class="alert"> -->
+    <div class="alert alert-{{ message.type }}" style="margin-top: 95px; margin-bottom: 3px">
+        {{ message.body }}
+    </div>
+{% endfor %}
     </header>       
                             
     {% endif %}
         
-        {% for message in flash_messages %}
-            <!-- <div class="alert"> -->
-            <div class="alert alert-{{ message.type }}">
-                {{ message.body }}
-            </div>
-        {% endfor %}
 
         {% block body %}
         {% endblock %}
+    
         
     </div>
     
