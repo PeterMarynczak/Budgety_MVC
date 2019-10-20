@@ -15,24 +15,29 @@
     <!--###############################-->
     <!-- MENU GÓRNE ###################-->
     <!--###############################-->
+    
 {% if not current_user %}
    <header> 
-    <div class = "container">
-        <nav class="navbar navbar-default fixed-top">
-            <div class="container-fluid">
+       <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
                 <ul class="nav navbar-nav">
                     <li><a href="/"><img src="{{ base_path ~ directory }}/images/logo.png" alt="brand_logo" class="img-responsive"></a></li>
                 </ul>
             </div>
-         </nav>
-       </div>
+       </nav>
     </header>
+{% for message in flash_messages %}
+    <!-- <div class="alert"> -->
+    <div class="alert alert-{{ message.type }}" style="margin-top: 75px; margin-bottom: 3px">
+        {{ message.body }}
+    </div>
+{% endfor %}
     
                     
      {% elseif current_user %}               
                     
     <header>   
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default navbar-fixed-top">
           <div class="container-fluid">
 
             <div class="navbar-header">
@@ -56,20 +61,22 @@
               </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
-        </nav>  
-    </header>       
+        </nav> 
+    </header> 
+    
+    {% for message in flash_messages %}
+    <!-- <div class="alert"> -->
+    <div class="alert alert-{{ message.type }}" style="margin-top: 95px; margin-bottom: 3px">
+        {{ message.body }}
+    </div>
+    {% endfor %}
                             
     {% endif %}
         
-        {% for message in flash_messages %}
-            <!-- <div class="alert"> -->
-            <div class="alert alert-{{ message.type }}">
-                {{ message.body }}
-            </div>
-        {% endfor %}
 
         {% block body %}
         {% endblock %}
+    
         
     </div>
     

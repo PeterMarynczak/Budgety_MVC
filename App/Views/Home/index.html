@@ -4,12 +4,85 @@
 
 {% block body %}
 
-    <h1>Welcome</h1>
-
     {% if current_user %}
-        Hello {{ current_user.name }}.
+       <h5 style="text-align: center;">Witaj {{ current_user.name }} !</h5>
+
+    <!--###############################-->
+    <!--Carousel ######################-->
+
+        <div id="pokaz-slajdow" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#pokaz-slajdow" data-slide-to="0" class="active"></li>
+                <li data-target="#pokaz-slajdow" data-slide-to="1"></li>
+                <li data-target="#pokaz-slajdow" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="{{ base_path ~ directory }}/images/carousel1.jpg" alt="" class="img-responsive">
+                    <div class="carousel-caption">
+                        <h1>Kontroluj własny budżet</h1>
+                        <p>Poznaj aplikację Budgety.pl</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{ base_path ~ directory }}/images/carousel2.jpg" alt="" class="img-responsive">
+                    <div class="carousel-caption">
+                        <h1>Przeglądaj własny rachunek w kilka sekund</h1>
+                    </div>                 
+                </div>
+                <div class="item">
+                    <img src="{{ base_path ~ directory }}/images/carousel3.jpg" alt="" class="img-responsive">
+                    <div class="carousel-caption">
+                        <h1>Siła oszczędzania</h1>
+                        <p>To proste, wydawaj mniej niż zarabiasz</p>
+                    </div>                 
+                </div>                        
+            </div>
+        </div>
+	<!--###############################-->
     {% else %}
-        <a href="/signup/new">Sign up</a> or <a href="/login">log in</a>.
-    {% endif %}
+
+<div class="container">
+    <div class="row">
+    <div class="col-sm-12">
+        <div class="text-center">
+            <a href="/login"><button id = "log-reg" type="button" class="btn btn-light btn-sm">Logowanie</button></a>
+            lub 
+            <a href="/signup/new"><button id = "log-reg" type="button" class="btn btn-light btn-sm">Rejestracja</button></a>
+        </div>
+    </div>
+</div>
+</div>
+
+        <section id="index_body">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 body_naglowek">       
+                    <h2>Aplikacja dbająca o finanse</h2>
+                        <p class="quote-text">
+                            Zrobić budżet to wskazać swoim pieniądzom, dokąd mają iść, zamiast się zastanawiać, gdzie się rozeszły.<br> - John C. Maxwell 
+                        </p>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">
+                    <img src="images/budget_img.jpg" class="img-responsive" alt="" id="family_img">
+                </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
+                        <h3>Przychody</h3>
+                        <h5><span class="glyphicon glyphicon-ok"></span>Archiwizuj każdy zastrzyk finansowy</h5>
+                        <p>Miej dostęp do archiwum przychodów, z laptopa, z telefonu. Bądź na bierząco z własnym rachunkiem</p>
+
+                        <h3>Wydatki</h3>
+                        <h5><span class="glyphicon glyphicon-ok"></span>Kontroluj odpływ finansów</h5>                    
+                        <p>Pamiętaj, że oszczędzania polega na wydawaniu mniej niż zarabiasz,
+                        różnicę inwestuj</p>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    {% endif %} 
 
 {% endblock %}

@@ -4,7 +4,7 @@
         "mailgun/mailgun-php": "^2.8",
         "kriswallsmith/buzz": "^1.0",
         "nyholm/psr7": "^1.2",
-        "twbs/bootstrap": "^4.3"
+        "twbs/bootstrap": "^3.4.1"
     },
     "autoload": {
         "psr-4": {
