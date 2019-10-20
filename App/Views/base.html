@@ -62,13 +62,14 @@
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav> 
-        {% for message in flash_messages %}
+    </header> 
+    
+    {% for message in flash_messages %}
     <!-- <div class="alert"> -->
     <div class="alert alert-{{ message.type }}" style="margin-top: 95px; margin-bottom: 3px">
         {{ message.body }}
     </div>
-{% endfor %}
-    </header>       
+    {% endfor %}
                             
     {% endif %}
         
