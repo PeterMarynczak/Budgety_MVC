@@ -5,7 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Auth;
 use \App\Flash;
-use \App\Models\AddIncome;
+use \App\Models\AddExpense;
 
 /**
  * Items controller (example)
@@ -13,7 +13,7 @@ use \App\Models\AddIncome;
  * PHP version 7.0
  */
 //class Items extends \Core\Controller
-class Income extends Authenticated
+class Expense extends Authenticated
 {
 
 	 /**
@@ -23,7 +23,7 @@ class Income extends Authenticated
      */
     public function newAction()
     {
-        View::renderTemplate('Income/new.html');
+        View::renderTemplate('Expense/new.html');
     }
 
     /**
@@ -38,18 +38,18 @@ class Income extends Authenticated
             $id = $_SESSION['user_id'];
         } 
 
-        $AddIncome = new AddIncome($_POST);
+        $AddExpense = new AddExpense($_POST);
 
-        if ($AddIncome->save($id)) {
+        if ($AddExpense->save($id)) {
 
-        	//echo '<pre>' , var_dump($AddIncome) , '</pre>';
-        	Flash::addMessage('Przychód dodano pomyślnie');
+        	//echo '<pre>' , var_dump($AddExpense) , '</pre>';
+        	Flash::addMessage('Wydatek dodano pomyślnie');
             $this->redirect('/');
 
         } else {
 
-        	Flash::addMessage('Nie udało się dodać przychodu, spróbuj ponownie', Flash::WARNING);
-            View::renderTemplate('Income/new.html');
+        	Flash::addMessage('Nie udało się dodać wydatku, spróbuj ponownie', Flash::WARNING);
+            View::renderTemplate('Expense/new.html');
         }
 
         //echo "<pre>", var_dump($income), "</pre>";

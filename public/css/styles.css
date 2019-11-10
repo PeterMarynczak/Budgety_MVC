@@ -137,11 +137,17 @@ font-size: 2.5rem;
 font-weight: 300;
 color: #ffffff;
 }
-/*
+
+
 .alert {
-    border: 1px solid #ccc;
-    padding: 6px;
+text-align: center;
+border: 1px solid #ccc;
+padding: 6px;
+width: 400px;
 }
+/*
+
+
 .alert-info {
     background-color: #d9edf7;
 }
