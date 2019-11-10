@@ -14,7 +14,7 @@ use \App\Flash;
 class AddIncome extends \Core\Model
 {
 
-	public function __construct($data = [])
+    public function __construct($data = [])
     {
         foreach ($data as $key => $value) {
             $this->$key = $value;
@@ -34,7 +34,10 @@ class AddIncome extends \Core\Model
      */
     public function save($id)
     {
-        $this->validate();
+        //
+
+        $price = $this->price;
+        $this->validate($price);
 
         if (empty($this->errors)) {
 
@@ -58,16 +61,13 @@ class AddIncome extends \Core\Model
         return false;
     }
 
-
-
-    public function validate()
+    public function validate($price)
     {
         // Price
+    	$price_check = str_replace(",",".",$price); 
+        $price_check = round($price_check, 2);
 
-    	$price = str_replace(",",".",$this->price); 
-        $price = round($price, 2);
-
-        if ($price == 0) {
+        if ($price_check == 0) {
         	$this->errors[] = 'Wprowadzona kwota nie jest liczbą';
     		}
 
