@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Core\View;
 use \App\Auth;
+use \App\Flash;
 use \App\Models\AddIncome;
 
 /**
@@ -37,10 +38,22 @@ class Income extends Authenticated
             $id = $_SESSION['user_id'];
         } 
 
-        $income = new Income($_POST);
+        $AddIncome = new AddIncome($_POST);
 
-        echo "<pre>", var_dump($income), "</pre>";
-        //$income = User::authenticate($_POST['email'], $_POST['password']);
+        if ($AddIncome->save($id)) {
+
+        	//echo '<pre>' , var_dump($AddIncome) , '</pre>';
+        	Flash::addMessage('Przychód dodano pomyślnie');
+            $this->redirect('/');
+
+        } else {
+
+        	Flash::addMessage('Nie udało się dodać przychodu', Flash::WARNING);
+            View::renderTemplate('Income/new.html');
+        }
+
+        //echo "<pre>", var_dump($income), "</pre>";
+        //Flash::addMessage('Przychód dodano pomyślnie');
     }
 
 }
