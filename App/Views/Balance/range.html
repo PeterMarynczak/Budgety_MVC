@@ -6,6 +6,8 @@
     
     <script src="/js/app.js"></script>
 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+     
 {% endblock %}
 
 {% block body %}
@@ -13,7 +15,7 @@
 <!--###############################-->
 <!--formularz########################-->
 <!--###############################-->
-<form method="post">
+<form action="/balance/show" method="post">
   <div class="form-group top-row-range">
     <div class="col-xs-offset-5 col-xs-5 col-sm-offset-7 col-sm-5 col-md-offset-8 col-md-4 col-lg-offset-8 col-lg-4 text-right"> 
       <label for="month">Wybierz zakres:</label>
@@ -62,6 +64,13 @@
   </div>
 </form>  
 
+<h1>Members</h1>
+<ul>
+    {% for incomes in incomes %}
+        <li>{{ incomes.amount }}</li>
+    {% endfor %}
+</ul>
+
 <div class="container">
   <div class="col-lg-offset-3 col-lg-6 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8">
     <div class="table-responsive">
@@ -72,6 +81,15 @@
             </div>
         </div>
            <table id="editableTable" class="table table-stripped">
+            {% if incomes is not empty %}
+                <p>incomes</p>
+                <ul>
+                {% for amount in incomes.amount %}
+                      <li>{{ incomes.amount }}</li>
+                {% endfor %}
+                <tr class="table-info">
+                </ul>
+            {% endif %}
             <thead>
               <tr>
                 <th>Kwota</th>

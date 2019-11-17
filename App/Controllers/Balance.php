@@ -5,7 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Auth;
 use \App\Flash;
-//use \App\Models\AddIncome;
+use \App\Models\Balance_m;
 
 /**
  * Items controller (example)
@@ -33,28 +33,53 @@ class Balance extends Authenticated
      */
     public function showAction()
     {
-        /*
-    	if (isset($_SESSION['user_id'])) {
+
+        if (isset($_POST['month'])) {
+
             $id = $_SESSION['user_id'];
-        } 
+            $month = $_POST['month'];
 
-        //$AddIncome = new AddIncome($_POST);
+            if($month == "current_month"){
+              
+            $first_day_of_month = date('Y-m-01');
+            $last_day_of_month = date('Y-m-t');
+            
+            } else if ($month == "last_month") {
+                $first_day_of_month = date("Y-m-d", mktime(0, 0, 0, date("m")-1, 1));
+                $last_day_of_month = date("Y-m-d", mktime(0, 0, 0, date("m"), 0));
+            
+            } else if ($month == "current_year") {
+              
+                $first_day_of_month = date(('Y').'-01-01');
+                $last_day_of_month = date('Y') . '-12-31';
+            
+            
+            } else if($month == "custom") {
+                
+                $first_day_of_month = $_POST['date1'];
+                $last_day_of_month = $_POST['date2'];
+                $first_day_of_month = date("Y-m-d", strtotime($first_day_of_month));
+                $last_day_of_month = date("Y-m-d", strtotime($last_day_of_month));
 
-        if ($AddIncome->save($id)) {
+            }
 
-        	//echo '<pre>' , var_dump($AddIncome) , '</pre>';
-        	Flash::addMessage('Przychód dodano pomyślnie');
-            $this->redirect('/');
 
-        } else {
+            $incomes = Balance_m::getIncomes($first_day_of_month, $last_day_of_month, $id);
 
-        	Flash::addMessage('Nie udało się dodać przychodu, spróbuj ponownie', Flash::WARNING);
-            View::renderTemplate('Income/new.html');
+            //echo '<pre>' , var_dump($incomes) , '</pre>';
+
+            $expense = Balance_m::getExpenses($first_day_of_month, $last_day_of_month, $id);
+
+            //echo '<pre>' , var_dump($expence) , '</pre>';
+
+            View::renderTemplate('Balance/range.html', [
+                'incomes' => $incomes,
+                'expense' => $expense
+            ]);
+
+            
+            //$ShowBalance = new ShowBalance($first_day_of_month, $last_day_of_month);
+
         }
-
-        //echo "<pre>", var_dump($income), "</pre>";
-        //Flash::addMessage('Przychód dodano pomyślnie');
-    }
-    */
     }
 }
