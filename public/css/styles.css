@@ -192,8 +192,8 @@ font-size: 80%;
         height: 3%;
         width: 3%;
     }
-    .table-responsive{
-        font-size: 1.1rem;
+    #editableTable{
+        font-size: 1.7rem;  
     }
 }
 
@@ -206,8 +206,8 @@ font-size: 80%;
         height: 5%;
         width: 5%;
     }
-    .table-responsive{
-        font-size: 1.1rem;
+    #editableTable{
+        font-size: 2.2rem;  
     }
 }
 
@@ -219,6 +219,9 @@ font-size: 80%;
     #stopka img{
         height: 5%;
         width: 5%;
+    }
+    #editableTable{
+        font-size: 1.8rem;  
     }
 }
 
@@ -237,5 +240,11 @@ font-size: 80%;
     #stopka img{
         height: 4%;
         width: 4%;
+    }
+    #editableTable{
+        font-size: 1.1rem;  
+    }
+    h2 {
+        font-size: 2rem; 
     }
 }
