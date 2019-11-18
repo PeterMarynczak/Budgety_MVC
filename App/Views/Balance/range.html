@@ -95,6 +95,13 @@
         </tbody>
        </table> 
       </div>
+      {% if incomes %}
+      {% set sum = 0 %}                  
+        {% for incomes in incomes %}            
+        {% set sum = sum + incomes.amount %}        
+        {% endfor %}    
+      <h4>Suma przychodów: {{ sum }}  zł</h4>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -129,6 +136,13 @@
         </tbody>
         </table> 
       </div>
+        {% if expense %}
+        {% set sum = 0 %}                  
+        {% for expense in expense %}            
+        {% set sum = sum + expense.amount %}        
+        {% endfor %}    
+      <h4>Suma wydatków: {{ sum }}  zł</h4>
+      {% endif %}
     </div>
   </div>
 </div>
