@@ -116,6 +116,17 @@
                 <th>Kategoria</th>                          
               </tr>
           </thead>
+          <tbody>
+          {% if expense %}
+          {% for expense in expense %}
+                <tr class="table-info">
+                  <td>{{ expense.amount }}</td>
+                  <td>{{ expense.date_of_expense }}</td> 
+                  <td>{{ expense.name }}</td>               
+               </tr> 
+          {% endfor %}
+          {% endif %} 
+        </tbody>
         </table> 
       </div>
     </div>
