@@ -7,6 +7,49 @@
     <script src="/js/app.js"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+
+            $(document).ready(function() {
+            var test = $('#test').data("isTest");
+            console.log(test);
+        });
+
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+
+        function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['name', 'amount'],
+        ]);
+
+        var options = {
+          //title: 'Struktura przychodów'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+          
+        var data = google.visualization.arrayToDataTable([
+          ['name', 'amount'],
+            
+         
+        ]);
+
+        var options = {
+          //title: 'Struktura przychodów'
+        };
+
+        var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+
+        chart2.draw(data, options);
+      }
+    </script>
      
 {% endblock %}
 
@@ -91,6 +134,7 @@
                   <td>{{ incomes.name }}</td>               
                </tr> 
           {% endfor %}
+          <div id="test" data-is-test="{{ incomes|json_encode }}"></div>
           {% endif %} 
         </tbody>
        </table> 
