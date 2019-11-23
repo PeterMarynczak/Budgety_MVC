@@ -59,6 +59,5 @@ class Mail
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         
         $result = curl_exec($curl);
-        echo $result;
     }
 }

@@ -40,8 +40,6 @@
 
 {% block body %}
 
-    <h1>Reset password</h1>
-
     {% if user.errors is not empty %}
         <p>Errors:</p>
         <ul>
@@ -51,18 +49,24 @@
         </ul>
     {% endif %}
 
-    <form method="post" id="formPassword" action="/password/reset-password">
+    <div class="row top-row-unlogged">
+         <div class="col-sm-12">
+            <div class="text-center">
+                <form method="post" id="formPassword" action="/password/reset-password">
 
-        <input type="hidden" name="token" value="{{ token }}" />
+                    <input type="hidden" name="token" value="{{ token }}" />
 
-        <div class="form-group">
-            <label for="inputPassword">Password</label>
-            <input type="password" id="inputPassword" name="password" placeholder="Password" required class="form-control" />
+                    <div class="form-group input-group col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-offset-1">
+                        <label for="inputPassword">Podaj nowe hasło</label>
+                        <input type="password" id="inputPassword" name="password" placeholder="Hasło" required class="form-control" />
+                    </div>
+
+                    <button type="submit" class="btn btn-default">Resetuj hasło</button>
+
+                </form>
         </div>
-
-        <button type="submit" class="btn btn-default">Reset password</button>
-
-    </form>
+    </div>
+</div>
 
 {% endblock %}
 
