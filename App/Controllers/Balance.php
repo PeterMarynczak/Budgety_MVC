@@ -64,7 +64,7 @@ class Balance extends Authenticated
             $balance = new Balance_m($_POST);
 
             $arg['incomes'] = $balance->getIncomes($first_day_of_month, $last_day_of_month, $id);
-            $arg['expense'] = $balance->getExpenses($first_day_of_month, $last_day_of_month, $id);
+            $arg['expenses'] = $balance->getExpenses($first_day_of_month, $last_day_of_month, $id);
             $arg['pieChart'] = $balance->showBalance($first_day_of_month, $last_day_of_month, $id);
             //echo '<pre>' , var_dump($arg['pieChart']) , '</pre>';
 
