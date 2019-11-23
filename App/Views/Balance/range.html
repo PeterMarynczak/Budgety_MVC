@@ -8,68 +8,31 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
-   
-    <script>
+      function drawChart() {
 
-        $(document).ready(function() {
-            var test = $('#Piechart').data("isTest");
+        var data = google.visualization.arrayToDataTable([
+          ['Name', 'Value'],
+          {% for pieCh in pieChart %}
+              ['{{ pieCh.name }}', {{ pieCh['SUM(e.amount)'] }}],
+            {% endfor %}
+        ]);
 
-           // window.alert(test[1][1]);
-             
-             for (var i = 0; i < test.length; i++){
-                  console.log(test[i].amount);
-                }
-             //echo json_encode(test);   
-            //console.log(test[1].amount);
+        var options = {
+          width: 500,
+          height: 350,
+          is3D: true,
+        };
 
-            google.charts.load('current', {'packages':['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-              function drawChart() {
-              
-               for (var i = 0; i < test.length; i++){
-                  data.addRow([test[i][0], parseInt(test[i][2])]);
-
-               }
-
-                var data = new google.visualization.DataTable();
-                data.addColumn('string', 'name');
-                data.addColumn('number', 'amount');
-
-                for(i = 0; i < test.length; i++){
-                  data.addRow([test[i].name, parseInt(test[i].amount)]);
-                }
-                
-              //['name', 'amount'],
-
-              //var options = {
-                //title: 'Struktura przychodów'
-              //};
-
-              var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-              chart.draw(data, options);
-                
-              var data = google.visualization.arrayToDataTable([
-                ['name', 'amount'],
- 
-              ]);
-
-              var options = {
-                //title: 'Struktura przychodów'
-              };
-
-              var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
-
-              chart2.draw(data, options);
-            }
-        });
-
-      
+        chart.draw(data, options);
+      }
     </script>
-     
 {% endblock %}
 
 {% block body %}
@@ -214,17 +177,93 @@
 <!--diagram ########################-->
 <!--###############################-->
 
-
 <div class="container">  
-  <h4 style="text-align: center;">Struktura przychodów</h4>
+  <h4 style="text-align: center;">Struktura wydatków</h4>
   <div class="col-md-offset-4" id="piechart"></div>
 </div>
 
-<div class="container">  
-  <h4 style="text-align: center;">Struktura wydatków</h4>
-  <div class="col-md-offset-4" id="piechart2"></div>
-</div>
+<!--###############################-->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-5 col-lg-offset-1">
 
-  
+          {% if incomes is empty %}
+          <h4>Brak przychodów w wybranym okresie</h4>
+          {% endif %}
+          <table class="table" id="incomeTable">
+            <thead>
+              <tr><th colspan="3" style="text-align: center;">STRUKTURA PRZYCHODÓW</th></tr>
+              <tr>
+                <th scope="col-lg-2">Data</th>
+                <th scope="col-lg-1">Kwota</th>
+                <th scope="col-lg-1">Kategoria</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for income in incomes %}
+              <tr>
+                <td>{{ income.date_of_income }}</td>
+                <td>{{ income.amount }}</td>
+                <td>{{ income.name }}</td>
+              </tr>
+              {% endfor %}
+              <tr>
+                <td colspan="2"><b>Suma przychodów:</b></td>
+                  <td><b>
+                    {% if incomes %}
+                      {% set sumIncome = 0 %}                  
+                        {% for incomes in incomes %}            
+                        {% set sumIncome = sumIncome + incomes.amount %}        
+                        {% endfor %}    
+                      {{ sumIncome }}  zł</h4>
+                      {% endif %}
+                  </b></td>
+              </tr>
+            </tbody>
+          </table>
+
+    </div>
+
+    <div class="col-lg-5 offset-lg-1">
+          {% if expense is empty %}
+          <div style="color: black;">Brak wydatków w wybranym okresie</div>
+          {% endif %}
+            <table class="table" id="expenseTable">
+              <thead>
+                <tr><th colspan="3" style="text-align: center;">STRUKTURA WYDATKÓW</th></tr>
+                <tr>
+                  <th scope="col-lg-2">Data</th>
+                  <th scope="col-lg-1">Kwota</th>
+                  <th scope="col-lg-1">Kategoria</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for expense in expense %}
+                <tr>
+                  <td>{{ expense.date_of_expense }}</td>
+                  <td>{{ expense.amount }}</td>
+                  <td>{{ expense.name }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td colspan="2"><b>Suma wydatków:</b></td>
+                    <td><b>
+                      {% if expense %}
+                        {% set sumExp = 0 %}                  
+                          {% for expense in expense %}            
+                            {% set sumExp = sumExp + expense.amount %}        
+                          {% endfor %}    
+                        {{ sumExp }}  zł</h4>
+                        {% endif %}
+                    </b></td>
+                </tr>
+              </tbody>
+            </table>
+
+    </div>
+
+
+  </div>
+</div>
 
 {% endblock %}
