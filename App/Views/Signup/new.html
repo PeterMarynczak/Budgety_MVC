@@ -48,8 +48,6 @@
 
 {% block body %}
 
-    <h1>Sign up</h1>
-
     {% if user.errors is not empty %}
         <p>Errors:</p>
         <ul>
@@ -59,23 +57,34 @@
         </ul>
     {% endif %}
 
-    <form method="post" action="/signup/create" id="formSignup">
+    <div class="row top-row-unlogged">
+         <div class="col-sm-12">
+            <div class="text-center">
+            <h3>Rejestracja</h3>
+                <form method="post" action="/signup/create" id="formSignup">
+    
 
-        <div class="form-group">
-            <label for="inputName">Name</label>
-            <input id="inputName" name="name" placeholder="Name" autofocus value="{{ user.name }}" required class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="inputEmail">Email address</label>
-            <input id="inputEmail" name="email" placeholder="email address" value="{{ user.email }}" required type="email" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="inputPassword">Password</label>
-            <input type="password" id="inputPassword" name="password" placeholder="Password" required class="form-control" />
-        </div>
+                    <div class="form-group input-group col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-offset-1">
+                        <label for="inputName">Imię</label>
+                        <input id="inputName" name="name" placeholder="Imię" autofocus value="{{ user.name }}" required class="form-control" />
+                    </div>
+                    <div class="form-group input-group col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-offset-1">
+                        <label for="inputEmail">Adres Email</label>
+                        <input id="inputEmail" name="email" placeholder="Adres Email" value="{{ user.email }}" required type="email" class="form-control" />
+                    </div>
+                    <div class="form-group input-group col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-offset-1">
+                        <label for="inputPassword">Hasło</label>
+                        <input type="password" id="inputPassword" name="password" placeholder="Hasło" required class="form-control" />
+                    </div>
 
-        <button type="submit" class="btn btn-default">Sign up</button>
+                    <button type="submit" class="btn btn-default">Zarejestruj</button>
 
-    </form>
+                </form>
+
+            </div>
+         </div>
+    </div>
+
+    
 
 {% endblock %}

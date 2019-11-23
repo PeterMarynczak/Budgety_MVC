@@ -53,33 +53,23 @@ class Balance extends Authenticated
                 $first_day_of_month = date(('Y').'-01-01');
                 $last_day_of_month = date('Y') . '-12-31';
             
-            
             } else if($month == "custom") {
                 
                 $first_day_of_month = $_POST['date1'];
                 $last_day_of_month = $_POST['date2'];
                 $first_day_of_month = date("Y-m-d", strtotime($first_day_of_month));
                 $last_day_of_month = date("Y-m-d", strtotime($last_day_of_month));
-
             }
 
+            $balance = new Balance_m($_POST);
 
-            $incomes = Balance_m::getIncomes($first_day_of_month, $last_day_of_month, $id);
+            $arg['incomes'] = $balance->getIncomes($first_day_of_month, $last_day_of_month, $id);
+            $arg['expenses'] = $balance->getExpenses($first_day_of_month, $last_day_of_month, $id);
+            $arg['pieChart'] = $balance->showBalance($first_day_of_month, $last_day_of_month, $id);
+            //echo '<pre>' , var_dump($arg['pieChart']) , '</pre>';
 
-            //echo '<pre>' , var_dump($incomes) , '</pre>';
-
-            $expense = Balance_m::getExpenses($first_day_of_month, $last_day_of_month, $id);
-
-            //echo '<pre>' , var_dump($expence) , '</pre>';
-
-            View::renderTemplate('Balance/range.html', [
-                'incomes' => $incomes,
-                'expense' => $expense
-            ]);
-
+            View::renderTemplate('Balance/range.html', $arg); 
             
-            //$ShowBalance = new ShowBalance($first_day_of_month, $last_day_of_month);
-
         }
     }
 }

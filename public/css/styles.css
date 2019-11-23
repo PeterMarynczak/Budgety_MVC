@@ -6,8 +6,9 @@ body {
     margin-top: 3em;
     font-family: 'Open Sans';
     color: #34495e;
-    background-color: #ffffff;
     padding-bottom: 70px;
+    background-image: url("tile.png");
+
 }
 
 #flash {
@@ -104,7 +105,7 @@ background-color: #34495E;
 /*###############*/
 
 #pokaz-slajdow{
-padding-top: 4rem;
+padding-top: 5rem;
 margin-left: 4rem;
 margin-right: 4rem;
 }
@@ -150,19 +151,7 @@ border: 1px solid #ccc;
 padding: 6px;
 width: 400px;
 }
-/*
 
-
-.alert-info {
-    background-color: #d9edf7;
-}
-.alert-success {
-    background-color: #dff0d8;
-}
-.alert-warning {
-    background-color: #fcf8e3;
-}
-*/
 /*###############*/
 /* Stopka*/
 /*###############*/
