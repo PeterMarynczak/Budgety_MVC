@@ -15,14 +15,14 @@
     <link rel="stylesheet" type="text/css" media="all" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700&subset=latin,latin-ext">
     {% endblock %}
 </head>
-<body>
+<body style = "background-image: url({{ base_path ~ directory }}/images/money1.jpg);">
     <!--###############################-->
     <!-- MENU GÓRNE ###################-->
     <!--###############################-->
     
 {% if not current_user %}
-   <header> 
-       <nav class="navbar navbar-default navbar-fixed-top">
+   <header style = "background-image: url({{ base_path ~ directory }}/images/plash.jpg);"> 
+       <nav id = "nav-style" class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <ul class="nav navbar-nav">
                     <li><a href="/"><img src="{{ base_path ~ directory }}/images/logo.png" alt="brand_logo" class="img-responsive"></a></li>
@@ -82,7 +82,7 @@
         {% endblock %}
     
         <footer class="navbar page-footer font-small blue navbar-fixed-bottom" id = "stopka">
-              <div class="footer-copyright text-center py-3">© 2019 Copyright:
+              <div class="footer-copyright text-center py-3">
                 <h4>Copyright 2019 &copy; Budgety.pl</h4>
               </div>
         </footer>

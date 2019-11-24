@@ -2,13 +2,30 @@
 /* Główne*/
 /*###############*/
 
+html { 
+  background: url(money1.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+html, body {
+  height: 100%;
+
+}
+
 body {
     margin-top: 3em;
     font-family: 'Open Sans';
     color: #34495e;
     padding-bottom: 70px;
-    background-image: url("tile.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
 
+#nav-style {
+    border: 0.5px solid 437eff;
 }
 
 #flash {
@@ -27,7 +44,7 @@ body {
 }
 
 .top-row-range {
-    margin-top: 105px; 
+    margin-top: 101px; 
     margin-bottom: 3px;
 }
 /*###############*/
@@ -35,7 +52,7 @@ body {
 /*###############*/
 
 .navbar{
-background-color: #dfe6e9;
+
 font-size: 1.7rem;
 color: #34495e;
 padding-top: 0.5rem;
@@ -91,13 +108,17 @@ background-color: #34495E;
 /*###############*/
 /*Buttons*/
 /*###############*/
+
 #log-reg {
-    color: black;
-    background-color: burlywood;
+  color: black;
+  background-color: burlywood;
+  border-radius: 35px;      
 }
 #log-reg:hover {
-    color: white;
-    background-color: dimgrey;
+
+  color: white;
+  background-color: dimgrey;
+  border-radius: 35px;      
 }
 
 /*###############*/
@@ -144,6 +165,11 @@ font-weight: 300;
 color: #ffffff;
 }
 
+.carousel-inner {
+border-radius: 25px;
+background-color: rgba(0,0,0,0);
+overflow: hidden;
+}
 
 .alert {
 text-align: center;
