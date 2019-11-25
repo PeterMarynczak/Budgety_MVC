@@ -1,0 +1,13 @@
+# Remove the question mark from the request but maintain the query string
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^petermar.vot.pl$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.petermar.vot.pl$
+RewriteCond %{REQUEST_URI} !folder-name/
+RewriteRule (.*) /public/$1 [L]
+RewriteCond %{REQUEST_URI} !public/
+RewriteRule (.*) public/$1 [L] 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+
