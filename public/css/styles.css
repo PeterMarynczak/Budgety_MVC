@@ -24,6 +24,54 @@ body {
     background-size: 100% 100%;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
+#MyProfile{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+#MyProfile h3{
+  text-align: center;
+}
+.MyProfile_panel {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: solid 1px #e5e5e5;
+  text-align: left;
+}
+.MyProfile_panel:hover {
+  background-color: #f7f8fa;
+}
+#MyProfile a:hover {
+  -webkit-animation: pulse .8s;
+  animation: pulse .8s;
+}
+
+.about {
+  padding-top: 6rem;
+  padding-bottom: 3rem;
+  text-align: center;
+}
+.about_top {
+  margin-bottom: 5rem;
+}
+.thumbnail {
+  background-color: #8FBC8F;
+  border-radius: 6px;
+  padding: 2rem;
+}
+.thumbnail h3 {
+  color: #ffffff;
+}
+.thumbnail p {
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
 #nav-style {
     border: 0.5px solid 437eff;
 }
@@ -133,12 +181,13 @@ margin-right: 4rem;
 
 .carousel .item {
 width: 100%;
-max-height: 500px;
+max-height: 700px;
 }
 
-
 .carousel .item img {
-width: 100%;
+ 
+  min-height: 500px;
+  width: 100%;
 }
 
 .carousel .carousel-control{
@@ -242,16 +291,23 @@ font-size: 80%;
 
 
 @media(max-width: 767px){
-    .carousel-caption h1,
+  .carousel-caption h1,
 	.carousel-caption p{
 		font-size: 1.5rem;
 		line-height: 2.5rem;
+
 	}
 
-	.block{
-		margin-left: -20px;
-		margin-right: -20px;
-	}
+  .carousel .item img {
+ 
+  min-height: 200px;
+  width: 100%;
+}
+
+  .block{
+  	margin-left: -20px;
+  	margin-right: -20px;
+  }
     #stopka img{
         height: 4%;
         width: 4%;

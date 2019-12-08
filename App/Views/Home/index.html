@@ -2,13 +2,6 @@
 
 {% block title %}Home{% endblock %}
 
-{% block footer %}
-    
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-{% endblock %}
-
 {% block body %}
 
     {% if current_user %}
@@ -17,41 +10,39 @@
     <!--###############################-->
     <!--Carousel ######################-->
 
-        <div id="pokaz-slajdow" class="carousel slide" style="width: 1000px; margin: 0 auto" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#pokaz-slajdow" data-slide-to="0" class="active"></li>
-                <li data-target="#pokaz-slajdow" data-slide-to="1"></li>
-                <li data-target="#pokaz-slajdow" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="item active">
-                    <div class="col-sm-offset-2 col-sm-8">
-                        <img src="{{ base_path ~ directory }}/images/carousel1.jpg" alt="" class="img-responsive">
-                    <div class="carousel-caption">
-                        <h1>Kontroluj własny budżet</h1>
-                        <p>Poznaj aplikację Budgety.pl</p>
-                    </div>
+        <section class="about" style="margin-top: 40px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 about_top">       
+                    <h2>Kontrola własnego <strong>budżetu</strong></h2>
+                    <h4>Analizuj własne przychody i wydatki, to bardzo proste, Kontrola nad własnymi finansami zabezpiecza przed wpadnięciem w finansowe tarapaty i ułatwi spełnianie marzeń</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <div class="thumbnail">
+                        <img src= "{{ base_path ~ directory }}/images/Mail.png"  class="img-responsive" alt="">
+                        <h3>Czytelność</h3>
+                        <p>Aplikacja dostosowana do łatwej obsługi</p>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="col-sm-offset-2 col-sm-8">
-                    <img src="{{ base_path ~ directory }}/images/carousel2.jpg" alt="" class="img-responsive">
-                    <div class="carousel-caption">
-                        <h1>Przeglądaj własny rachunek w kilka sekund</h1>
-                    </div>  
-                    </div>               
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <div class="thumbnail">
+                        <img src="{{ base_path ~ directory }}/images/Book.png" alt="">
+                        <h3>Proste księgowanie</h3>
+                        <p>Każdy bieżacy wydatek oraz przypływ gotówki zapisany w twojej własnej bazie</p>
+                    </div>
                 </div>
-                <div class="item">
-                    <div class="col-sm-offset-2 col-sm-8">
-                    <img src="{{ base_path ~ directory }}/images/carousel3.jpg" alt="" class="img-responsive">
-                    <div class="carousel-caption">
-                        <h1>Siła oszczędzania</h1>
-                        <p>To proste, wydawaj mniej niż zarabiasz</p>
-                    </div>   
-                    </div>              
-                </div>                        
+                 <div class="col-sm-4 col-md-4 col-lg-4">
+                    <div class="thumbnail">
+                        <img src="{{ base_path ~ directory }}/images/Watches.png" class="img-responsive" alt="">
+                        <h3>Całodobowy dostęp</h3>
+                        <p>Jeżeli masz dostęp do internetu, będziej miał również dostęp do swoich finansowych operacji</p>
+                    </div>
+                </div>                      
             </div>
         </div>
+    </section>
 
 	<!--###############################-->
     {% else %}
@@ -68,33 +59,36 @@
     </div>
 </div>
 
-        <section id="index_body">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 body_naglowek">       
-                    <h2>Aplikacja dbająca o finanse</h2>
-                        <p class="quote-text">
-                            Zrobić budżet to wskazać swoim pieniądzom, dokąd mają iść, zamiast się zastanawiać, gdzie się rozeszły.<br> - John C. Maxwell 
-                        </p>
-                    <hr>
+    <section id="index_body">
+        <div id="pokaz-slajdow" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#pokaz-slajdow" data-slide-to="0" class="active"></li>
+            <li data-target="#pokaz-slajdow" data-slide-to="1"></li>
+            <li data-target="#pokaz-slajdow" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="{{ base_path ~ directory }}/images/carousel1.jpg" alt="" class="img-responsive">
+                <div class="carousel-caption">
+                    <h1>Kontroluj własny budżet</h1>
+                    <p>Poznaj aplikację Budgety.pl</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-5">
-                    <img src="images/budget_img.jpg" class="img-responsive" alt="" id="family_img">
-                </div>
-                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
-                        <h3>Przychody</h3>
-                        <h5><span class="glyphicon glyphicon-ok"></span>Archiwizuj każdy zastrzyk finansowy</h5>
-                        <p>Miej dostęp do archiwum przychodów, z laptopa, z telefonu. Bądź na bierząco z własnym rachunkiem</p>
-
-                        <h3>Wydatki</h3>
-                        <h5><span class="glyphicon glyphicon-ok"></span>Kontroluj odpływ finansów</h5>                    
-                        <p>Pamiętaj, że oszczędzania polega na wydawaniu mniej niż zarabiasz,
-                        różnicę inwestuj</p>
-                    </div>
+            <div class="item">
+                <img src="{{ base_path ~ directory }}/images/carousel2.jpg" alt="" class="img-responsive">
+                <div class="carousel-caption">
+                    <h1>Przeglądaj własny rachunek w kilka sekund</h1>
+                </div>                 
             </div>
+            <div class="item">
+                <img src="{{ base_path ~ directory }}/images/carousel3.jpg" alt="" class="img-responsive">
+                <div class="carousel-caption">
+                    <h1>Siła oszczędzania</h1>
+                        <p>To proste, wydawaj mniej niż zarabiasz</p>
+                </div>                 
+            </div>                        
         </div>
+    </div>
     </section>
 
     {% endif %} 
