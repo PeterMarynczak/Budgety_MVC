@@ -5,6 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Auth;
 use \App\Flash;
+use \App\Models\User;
 
 /**
  * Profile controller
@@ -71,6 +72,18 @@ class Profile extends Authenticated
                 'user' => $this->user
             ]);
         }
+    }
+
+    /**
+     * delete the profile
+     *
+     * @return void
+     */
+    public function delete()
+    {
+        User::deleteUser();
+        Flash::addMessage('Twoje konto zostało usunięte');
+        $this->redirect('/login');
     }
 }
 
