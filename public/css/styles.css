@@ -34,7 +34,7 @@ a:hover {
   text-align: center;
 }
 
-#MyProfile h3{
+#MyProfile h4{
   text-align: center;
 }
 .MyProfile_panel {
@@ -42,6 +42,7 @@ a:hover {
   padding-bottom: 0.5rem;
   border-bottom: solid 1px #e5e5e5;
   text-align: left;
+  text-decoration: none;
 }
 .MyProfile_panel:hover {
   background-color: #f7f8fa;
