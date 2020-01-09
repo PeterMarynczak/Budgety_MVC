@@ -6,6 +6,7 @@ use \Core\View;
 use \App\Auth;
 use \App\Flash;
 use \App\Models\User;
+use \App\Models\Profile_m;
 
 /**
  * Profile controller
@@ -36,7 +37,13 @@ class Profile extends Authenticated
      */
     public function showAction()
     {
-       View::renderTemplate('Profile/show.html', [
+
+      $profile = new Profile_m;
+      $id = $_SESSION['user_id'];
+
+      $arg['payment'] = $profile->getPaymentMethods($id);
+
+       View::renderTemplate('Profile/show.html', $arg, [
             'user' => $this->user
         ]);
     }

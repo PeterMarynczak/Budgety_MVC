@@ -29,6 +29,25 @@ a:hover {
   text-decoration: none;
 }
 
+.myTable th {
+   text-align: center; 
+}
+
+.myTable {
+   margin: auto;
+   width: 50% !important; 
+}
+
+.customPanel {
+  background: #b2ea9c; 
+  text-align: center;
+}
+
+.customPanel:hover {
+  background: #e0eadd; 
+}
+
+
 #MyProfile{
   padding-top: 2rem;
   padding-bottom: 2rem;
