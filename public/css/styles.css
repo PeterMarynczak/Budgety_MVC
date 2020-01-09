@@ -2,6 +2,7 @@
 /* Główne*/
 /*###############*/
 
+
 html { 
   background: url(money1.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -259,6 +260,7 @@ font-size: 80%;
     #editableTable{
         font-size: 1.7rem;  
     }
+
 }
 
 @media(min-width: 992px) and (max-width: 1199px){

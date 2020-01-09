@@ -19,7 +19,7 @@ class Balance_m extends \Core\Model
             $this->$key = $value;
         };
     }
-    
+
     public function getIncomes($dayFirst, $dayLast, $id)
     {
 
@@ -68,7 +68,7 @@ class Balance_m extends \Core\Model
         return $result;
     }
 
-    public function showBalance($dayFirst, $dayLast, $id) {
+    public function showBalanceExpense($dayFirst, $dayLast, $id) {
 
         if (empty($this->errors)) {
 
@@ -103,6 +103,48 @@ class Balance_m extends \Core\Model
             json_encode($expensePie, JSON_NUMERIC_CHECK);
 
             return $expensesArray;
+
+        } else {
+
+            return false;
+        }
+    }
+
+    public function showBalanceIncome($dayFirst, $dayLast, $id) {
+
+        if (empty($this->errors)) {
+
+            $incomePieChart = "SELECT ec.name, SUM(e.amount) 
+            FROM incomes AS e, incomes_category_assigned_to_users AS ec 
+            WHERE e.user_id=:id 
+            AND ec.user_id=:id 
+            AND ec.id=e.income_category_assigned_to_user_id 
+            AND e.date_of_income 
+            BETWEEN :dayFirst 
+            AND :dayLast
+            GROUP BY income_category_assigned_to_user_id";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($incomePieChart);
+
+            $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+            $stmt->bindValue(':dayFirst', $dayFirst, PDO::PARAM_STR);
+            $stmt->bindValue(':dayLast', $dayLast, PDO::PARAM_STR);
+            
+            $stmt->execute();
+
+            $incomePie = array();
+            $expenseResult = $stmt->fetchAll(\PDO::FETCH_OBJ);
+
+            $incomeArray = json_decode(json_encode($expenseResult), True);
+
+            foreach ($incomeArray as $incomeChart) {
+                array_push($incomePie, array("label"=>$incomeChart['name'], "y"=>$incomeChart['SUM(e.amount)']));
+            }
+
+            json_encode($incomePie, JSON_NUMERIC_CHECK);
+
+            return $incomeArray;
 
         } else {
 
