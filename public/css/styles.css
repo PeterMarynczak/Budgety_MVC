@@ -4,12 +4,12 @@
 
 
 html { 
-  background: url(money1.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
+  -webkit-background-repeat: repeat;
+  -moz-background-repeat: repeat;
+  -o-background-repeat: repeat;
+  background-repeat: repeat;
+
+}*/
 
 html, body {
   height: 100%;
@@ -21,8 +21,8 @@ body {
     font-family: 'Open Sans';
     color: #34495e;
     padding-bottom: 70px;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-repeat: repeat;
+    
 }
 
 a:hover {
@@ -47,7 +47,9 @@ a:hover {
   background: #e0eadd; 
 }
 
-
+#balanceMessage {
+  margin-bottom: 10rem;
+}
 #MyProfile{
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -99,6 +101,11 @@ a:hover {
 #flash {
     margin-top: 95px;
     padding: 2rem;
+}
+
+.top-row-alert {
+    margin-top: 60px;
+    margin-bottom: 3px;
 }
 
 .top-row-unlogged {

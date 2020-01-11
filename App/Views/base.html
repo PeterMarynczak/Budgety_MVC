@@ -12,12 +12,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     {% endblock %}
 </head>
-<body style = "background-image: url({{ base_path ~ directory }}/images/money1.jpg);">
+<body style = "background-image: url({{ base_path ~ directory }}/images/brick.png);">
     <!--###############################-->
     <!-- MENU GÓRNE ###################-->
     <!--###############################-->
     
 {% if not current_user %}
+<div class="container">
    <header style = "background-image: url({{ base_path ~ directory }}/images/plash.jpg);"> 
        <nav id = "nav-style" class="navbar navbar-default navbar-fixed-top">
             <div class="container">
@@ -29,17 +30,17 @@
     </header>
 {% for message in flash_messages %}
     <!-- <div class="alert"> -->
-    <div class="alert alert-{{ message.type }} top-row-logged center-block">
+    <div class="alert alert-{{ message.type }} top-row-alert center-block">
         {{ message.body }}
     </div>
 {% endfor %}
     
                     
-     {% elseif current_user %}               
-                    
+{% elseif current_user %}               
+<div class="container">              
     <header>   
         <nav class="navbar navbar-default navbar-fixed-top">
-          <div class="container-fluid">
+          <!-- <div class="container-fluid"> -->
 
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#moje-menu">
@@ -61,13 +62,13 @@
                 <li class="nav-item social pull-right"><a class="nav-link" href="/logout"><span class="glyphicon glyphicon-off"></span> Wyloguj się</a></li>
               </ul>
             </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
+          <!-- </div> --><!-- /.container-fluid -->
         </nav> 
     </header> 
     
     {% for message in flash_messages %}
     <!-- <div class="alert"> -->
-    <div class="alert alert-{{ message.type }} top-row-logged center-block">
+    <div class="alert alert-{{ message.type }} top-row-unlogged center-block">
         {{ message.body }}
     </div>
     {% endfor %}
@@ -77,6 +78,8 @@
 
         {% block body %}
         {% endblock %}
+
+    </div>
     
         <footer class="navbar page-footer font-small blue navbar-fixed-bottom" id = "stopka">
               <div class="footer-copyright text-center py-3">

@@ -42,10 +42,10 @@ class Profile extends Authenticated
       $id = $_SESSION['user_id'];
 
       $arg['payment'] = $profile->getPaymentMethods($id);
+      //$arg['income'] = $profile->getIncomeCategories($id);
+      $arg['user'] = $this->user;
 
-       View::renderTemplate('Profile/show.html', $arg, [
-            'user' => $this->user
-        ]);
+       View::renderTemplate('Profile/show.html', $arg);
     }
     
     /**
@@ -69,7 +69,7 @@ class Profile extends Authenticated
     {
         if ($this->user->updateProfile($_POST)) {
             
-            Flash::addMessage('Changes saved');
+            Flash::addMessage('Zmiany zapisano');
             
             $this->redirect('/profile/show');
             
@@ -92,6 +92,28 @@ class Profile extends Authenticated
         Flash::addMessage('Twoje konto zostało usunięte');
         $this->redirect('/login');
     }
+
+
+    public function addMethodAction()
+    {
+
+        $newMethod = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if ($newMethod->saveMethod($id)) {
+
+            //echo '<pre>' , var_dump($newMethod) , '</pre>';
+            Flash::addMessage('Kategorię dodano pomyślnie');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się dodać przychodu, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+            //View::renderTemplate('/');
+        }
+    }
+
 }
 
 
