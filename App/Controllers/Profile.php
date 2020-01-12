@@ -149,13 +149,29 @@ class Profile extends Authenticated
         }
     }
 
+    public function updateIncomeCategory()
+    {
+        $newCategory = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if ($newCategory->updateIncomeCategory($id)) {
+
+            Flash::addMessage('Nazwę kategorii zmieniono pomyślnie');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się zmienić nazwy kategorii, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+            //View::renderTemplate('/');
+        }
+    }
+
     public function deleteMethodAction()
     {
 
         $newMethod = new Profile_m($_POST);
         $id = $_SESSION['user_id'];
-
-        //echo '<pre>' , var_dump($newMethod) , '</pre>';
 
         if ($newMethod->deleteMethod($id)) {
 
@@ -165,6 +181,24 @@ class Profile extends Authenticated
         } else {
 
             Flash::addMessage('Nie udało się usunąć metody, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+        }
+    }
+
+    public function deleteIncomeAction()
+    {
+
+        $newIncome = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if ($newIncome->deleteIncomeCategory($id)) {
+
+            Flash::addMessage('Kategoria została usunięta');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się usunąć kategorii, spróbuj ponownie', Flash::WARNING);
             $this->redirect('/profile/show');
         }
     }

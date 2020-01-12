@@ -34,8 +34,7 @@ class AddIncome extends \Core\Model
      */
     public function save($id)
     {
-        //
-
+        
         $price = $this->price;
         $this->validate($price);
 
@@ -67,9 +66,10 @@ class AddIncome extends \Core\Model
     	$price_check = str_replace(",",".",$price); 
         $price_check = round($price_check, 2);
 
-        if ($price_check == 0) {
+        if ($price_check == 0) 
+        {
         	$this->errors[] = 'Wprowadzona kwota nie jest liczbą';
-    		}
+    	}
 
 	}
 
