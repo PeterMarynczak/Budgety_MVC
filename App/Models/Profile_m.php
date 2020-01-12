@@ -63,6 +63,31 @@ class Profile_m extends \Core\Model
         return false;
     }
 
+    public function updateMethod($id)
+    {
+        $changeMethod = $this->changeMethod;
+        $changeMethod = ucfirst($this->changeMethod);
+
+        $this->methodExists($changeMethod, $id);
+
+        if (empty($this->errors)) {
+
+            $sql = 'UPDATE payment_methods_assigned_to_users 
+                    SET name = :changeMethod 
+                    WHERE payment_methods_assigned_to_users.id = :methodID';
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':changeMethod', $changeMethod, PDO::PARAM_STR);
+            $stmt->bindValue(':methodID', $this->methodID, PDO::PARAM_STR);
+
+            return $stmt->execute();
+        }
+
+        return false;
+    }
+
     public function methodExists($methodName, $id)
     {
         $sql = 'SELECT * FROM payment_methods_assigned_to_users 

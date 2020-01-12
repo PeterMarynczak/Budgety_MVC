@@ -103,12 +103,33 @@ class Profile extends Authenticated
         if ($newMethod->saveMethod($id)) {
 
             //echo '<pre>' , var_dump($newMethod) , '</pre>';
-            Flash::addMessage('Kategorię dodano pomyślnie');
+            Flash::addMessage('Metodę dodano pomyślnie');
             $this->redirect('/profile/show');
 
         } else {
 
-            Flash::addMessage('Nie udało się dodać przychodu, spróbuj ponownie', Flash::WARNING);
+            Flash::addMessage('Nie udało się dodać nowej metody, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+        }
+    }
+
+    public function updateMethodAction()
+    {
+
+        $newMethod = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        echo '<pre>' , var_dump($newMethod) , '</pre>';
+
+        if ($newMethod->updateMethod($id)) {
+
+            //echo '<pre>' , var_dump($newMethod) , '</pre>';
+            Flash::addMessage('Nazwę metody zmieniono pomyślnie');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się zmienić nazwy metody, spróbuj ponownie', Flash::WARNING);
             $this->redirect('/profile/show');
             //View::renderTemplate('/');
         }

@@ -6,10 +6,18 @@
 
 <script> 
     $(document).ready(function(){ 
-        $('.edit').click(function(){
+        $('.editMethod').click(function(){
          var title = $(this).attr('value') 
-         $('.categoryName').val(title); 
-     });
+         var id = $(this).attr('data-id')
+         $('.changeMethod').val(title); 
+         $('.methodID').val(id); 
+     });   
+        $('.deleteMethod').click(function(){
+         var title = $(this).attr('value') 
+         var id = $(this).attr('data-id')
+         $('.changeMethod').val(title); 
+         $('.methodID').val(id); 
+     });   
    }) 
 
 </script>
@@ -66,7 +74,7 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-sm-8 col-sm-offset-2">
-                                        <button id="addMethod" class="btn btn-primary text-center" data-toggle="modal" value="method" data-target="#add"><span class="glyphicon glyphicon-plus"></span> Dodaj metodę</button>
+                                        <button id="addMethod" class="btn btn-primary center-block" data-toggle="modal" value="method" data-target="#add"><span class="glyphicon glyphicon-plus"></span> Dodaj metodę</button>
                                         <div id="alert" class="alert alert-info text-center" style="margin-top:20px; display:none;">
                                             <button class="close"><span aria-hidden="true">&times;</span></button>
                                             <span id="alert_message"></span>
@@ -80,8 +88,8 @@
                                                 <tr>
                                                     <td>{{ payment.name }}</td>
                                                     <td>
-                                                        <button class="btn btn-success btn-sm edit" data-toggle="modal" data-target="#edit" data-id="{{ payment.id }}" value="{{ payment.name }}"><span class="glyphicon glyphicon-edit"></span> Edytuj</button>
-                                                        <button class="btn btn-danger btn-sm delete" data-id="{{ payment.id }}"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+                                                        <button class="btn btn-success btn-sm editMethod" data-toggle="modal" data-target="#editMethod" data-id="{{ payment.id }}" value="{{ payment.name }}"><span class="glyphicon glyphicon-edit"></span> Edytuj</button>
+                                                        <button class="btn btn-danger btn-sm deleteMethod" data-toggle="modal" data-target="#deleteMethod" data-id="{{ payment.id }}" value="{{ payment.name }}"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
                                                     </td>
                                                 </tr>
                                                 {% endfor %} 
@@ -127,6 +135,37 @@
         </div>
     </section>
 
+    <!-- Add New Method-->
+    <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <center><h4 class="modal-title" id="myModalLabel">Dodaj kategorię</h4></center>
+                </div>
+                <div class="modal-body">
+                <div class="container-fluid">
+                <form action="/profile/addMethod" method="post">
+                    <div class="row form-group">
+                        <div class="col-sm-2">
+                            <label class="control-label" style="position:relative; top:7px;">Nazwa Metody:</label>
+                        </div>
+                        <div class="col-sm-10">
+                                <input type="text" class="form-control" name="methodName" required>
+                        </div>
+                    </div>
+                </div> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Zapisz</a>
+                </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
     <!-- Modal Delete User account -->
     <div id="deleteUser" class="modal fade" tabindex="-1">
@@ -149,39 +188,8 @@
     </div>
 </div>
 
-<!-- Add New Method-->
-<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <center><h4 class="modal-title" id="myModalLabel">Dodaj kategorię</h4></center>
-            </div>
-            <div class="modal-body">
-            <div class="container-fluid">
-            <form action="/profile/addMethod" method="post">
-                <div class="row form-group">
-                    <div class="col-sm-2">
-                        <label class="control-label" style="position:relative; top:7px;">Nazwa Metody:</label>
-                    </div>
-                    <div class="col-sm-10">
-                            <input type="text" class="form-control" name="methodName" required>
-                    </div>
-                </div>
-            </div> 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
-                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Zapisz</a>
-            </form>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- Edit -->
-<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Edit Method-->
+<div class="modal fade" id="editMethod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -190,14 +198,15 @@
             </div>
             <div class="modal-body">
             <div class="container-fluid">
-            <form id="editForm">
+            <form action="/profile/updateMethod" method="post">
                 <input type="hidden" class="id" name="id">
                 <div class="row form-group">
                     <div class="col-sm-2">
                         <label class="control-label" style="position:relative; top:7px;">Nazwa kategorii:</label>
                     </div>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control categoryName" name="categoryName" value="">
+                        <input type="text" class="form-control changeMethod" name="changeMethod" value="">
+                        <input type="hidden" class="form-control methodID" name="methodID" value="">
                     </div>
                 </div>
             </div> 
@@ -212,17 +221,17 @@
     </div>
 </div>
 
-<!-- Delete -->
-<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Delete Method-->
+<div class="modal fade" id="deleteMethod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <center><h4 class="modal-title" id="myModalLabel">Usuń kategorię</h4></center>
+                <center><h4 class="modal-title" id="myModalLabel">Usuń Metodę</h4></center>
             </div>
             <div class="modal-body">    
-                <p class="text-center">Are you sure you want to Delete</p>
-                <h2 class="text-center fullname"></h2>
+                <p class="text-center">Czy jesteś pewien, że chcesz usunąć tę metodę?</p>
+                <h2 class="text-center method_name"></h2>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
@@ -234,4 +243,39 @@
 </div>
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
