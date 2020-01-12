@@ -6,6 +6,7 @@ use \Core\View;
 use \App\Auth;
 use \App\Flash;
 use \App\Models\AddExpense;
+use \App\Models\Profile_m;
 
 /**
  * Items controller (example)
@@ -23,7 +24,11 @@ class Expense extends Authenticated
      */
     public function newAction()
     {
-        View::renderTemplate('Expense/new.html');
+        $profile = new Profile_m;
+        $id = $_SESSION['user_id'];
+
+        $arg['payment'] = $profile->getPaymentMethods($id);
+        View::renderTemplate('Expense/new.html', $arg);
     }
 
     /**

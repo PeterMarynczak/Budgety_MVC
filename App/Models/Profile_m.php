@@ -59,7 +59,6 @@ class Profile_m extends \Core\Model
 
             return $stmt->execute();
         }
-
         return false;
     }
 
@@ -84,8 +83,31 @@ class Profile_m extends \Core\Model
 
             return $stmt->execute();
         }
-
         return false;
+    }
+
+    public function deleteMethod($id)
+    {
+        $methodDelete = $this->methodDelete;
+        $methodDelete = ucfirst($this->methodDelete);
+
+        //$this->methodExists($methodDelete, $id);
+
+        //if (empty($this->errors)) {
+
+            $sql = 'DELETE FROM payment_methods_assigned_to_users 
+                    WHERE payment_methods_assigned_to_users.id = :methodID';
+                    
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':methodID', $this->methodID, PDO::PARAM_STR);
+
+            if ($stmt->execute()) 
+                return true;
+            else 
+                return false;
+
     }
 
     public function methodExists($methodName, $id)
@@ -111,3 +133,10 @@ class Profile_m extends \Core\Model
     }
 
 }
+
+
+// ["methodDelete"]=>
+//   string(11) "Gotóweczka"
+//   ["methodID"]=>
+//   string(1) "7"
+// }

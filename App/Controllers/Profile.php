@@ -102,7 +102,6 @@ class Profile extends Authenticated
 
         if ($newMethod->saveMethod($id)) {
 
-            //echo '<pre>' , var_dump($newMethod) , '</pre>';
             Flash::addMessage('Metodę dodano pomyślnie');
             $this->redirect('/profile/show');
 
@@ -119,10 +118,7 @@ class Profile extends Authenticated
         $newMethod = new Profile_m($_POST);
         $id = $_SESSION['user_id'];
 
-        echo '<pre>' , var_dump($newMethod) , '</pre>';
-
         if ($newMethod->updateMethod($id)) {
-
             //echo '<pre>' , var_dump($newMethod) , '</pre>';
             Flash::addMessage('Nazwę metody zmieniono pomyślnie');
             $this->redirect('/profile/show');
@@ -132,6 +128,26 @@ class Profile extends Authenticated
             Flash::addMessage('Nie udało się zmienić nazwy metody, spróbuj ponownie', Flash::WARNING);
             $this->redirect('/profile/show');
             //View::renderTemplate('/');
+        }
+    }
+
+    public function deleteMethodAction()
+    {
+
+        $newMethod = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        //echo '<pre>' , var_dump($newMethod) , '</pre>';
+
+        if ($newMethod->deleteMethod($id)) {
+
+            Flash::addMessage('Metoda została usunięta');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się usunąć metody, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
         }
     }
 

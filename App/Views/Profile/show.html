@@ -15,7 +15,8 @@
         $('.deleteMethod').click(function(){
          var title = $(this).attr('value') 
          var id = $(this).attr('data-id')
-         $('.changeMethod').val(title); 
+         $('.methodDelete').val(title); ;
+         $('h4.methodToDelete').text(title);
          $('.methodID').val(id); 
      });   
    }) 
@@ -227,17 +228,22 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <center><h4 class="modal-title" id="myModalLabel">Usuń Metodę</h4></center>
+                <center>
+                    <h4 class="modal-title methodToDelete" id="myModalLabel"></h4>
+                </center>
             </div>
             <div class="modal-body">    
                 <p class="text-center">Czy jesteś pewien, że chcesz usunąć tę metodę?</p>
                 <h2 class="text-center method_name"></h2>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                <button type="button" class="btn btn-danger id"><span class="glyphicon glyphicon-trash"></span> Yes</button>
-            </div>
-
+            <form action="/profile/deleteMethod" method="post">
+                <input type="hidden" class="form-control methodDelete" name="methodDelete" value="">
+                <input type="hidden" class="form-control methodID" name="methodID" value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                    <button type="submit" class="btn btn-danger id"><span class="glyphicon glyphicon-trash"></span> Yes</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

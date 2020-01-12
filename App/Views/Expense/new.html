@@ -44,18 +44,25 @@
             Sposób płatności:
           </h4>
           <div class="col-md-10 col-lg-10">
-            <label for="payment" class="radio">
-              <input type="radio" name="payment" id="gotowka" value="Gotówka" checked>
-              Gotówka
-            </label>
-            <label class="radio">
-              <input type="radio" name="payment" id="debetowa" value="Karta debetowa">
-              Karta debetowa
-            </label>
-            <label class="radio">
-              <input type="radio" name="payment" id="kredytowa" value="Karta kredytowa">
-              Karta kredytowa
-            </label>
+
+            {% for payment in payment %}
+
+              {% if loop.index0 == 0 %}
+                <label class="radio">
+                  <input type="radio" name="payment" id="{{ payment.name }}" value="{{ payment.name }}" checked>
+                  {{ payment.name }}
+                </label>
+              {% endif %}
+
+              {% if loop.index0 > 0 %}
+                <label class="radio">
+                  <input type="radio" name="payment" id="{{ payment.name }}" value="{{ payment.name }}">
+                  {{ payment.name }}
+                </label>
+              {% endif %}
+
+            {% endfor %}
+
          </div>
       </div>
     </div>
