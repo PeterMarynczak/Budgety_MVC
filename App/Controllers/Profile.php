@@ -125,7 +125,33 @@ class Profile extends Authenticated
 
         } else {
 
-            Flash::addMessage('Nie udało się dodać nowej metody, spróbuj ponownie', Flash::WARNING);
+            Flash::addMessage('Nie udało się dodać nowej kategorii, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+        }
+    }
+
+    public function addCategoryExpense()
+    {
+        $newCategory = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if(isset($_POST['price']))
+        {
+          $price = $_POST['price'];
+        }
+        else 
+        {
+          $price = 0;
+        }
+
+        if ($newCategory->saveExpenseCategory($id, $price)) {
+
+            Flash::addMessage('Kategorię dodano pomyślnie');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się dodać nowej kategorii, spróbuj ponownie', Flash::WARNING);
             $this->redirect('/profile/show');
         }
     }

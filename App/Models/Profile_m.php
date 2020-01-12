@@ -119,6 +119,35 @@ class Profile_m extends \Core\Model
         return false;
     }
 
+    public function saveExpenseCategory($id, $price)
+    {
+        $categoryName = $this->categoryName;
+        $categoryName = ucfirst($this->categoryName);
+
+        if ($price != 0) 
+        {
+        $this->validate($price);
+        }
+
+        $this->categoryExpenseExists($categoryName, $id);
+
+        if (empty($this->errors)) {
+
+            $sql = 'INSERT INTO expenses_category_assigned_to_users (user_id, name, limit_value)
+                    VALUES (:id, :categoryName, :price)';
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+            $stmt->bindValue(':price', $price, PDO::PARAM_STR);
+            $stmt->bindValue(':categoryName', $categoryName, PDO::PARAM_STR);
+
+            return $stmt->execute();
+        }
+        return false;
+    }
+
     public function updateMethod($id)
     {
         $changeMethod = $this->changeMethod;
@@ -252,6 +281,42 @@ class Profile_m extends \Core\Model
         {
             $this->errors[] = 'Taka kategoria już istnieje';
         }
+    }
+
+    public function categoryExpenseExists($categoryName, $id)
+    {
+        $sql = 'SELECT * FROM expenses_category_assigned_to_users 
+        WHERE name = :categoryName 
+        AND user_id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':categoryName', $categoryName, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        $count = $stmt->rowCount();
+
+        if ($count > 0) 
+        {
+            $this->errors[] = 'Taka kategoria już istnieje';
+        }
+    }
+
+    public function validate($price)
+    {
+        // Price
+        $price_check = str_replace(",",".",$price); 
+        $price_check = round($price_check, 2);
+
+        if ($price_check == 0) 
+        {
+            $this->errors[] = 'Wprowadzona kwota nie jest liczbą';
+        }
+
     }
 
 }

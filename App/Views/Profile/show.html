@@ -35,7 +35,11 @@
          $('.incomeDelete').val(title); ;
          $('h4.incomeToDelete').text(title);
          $('.incomeID').val(id); 
-     });  
+     }); 
+
+        $("#limit").click(function() {
+        $("#price").attr('disabled', !$("#price").attr('disabled'));
+        }); 
    }) 
 
 </script>
@@ -168,7 +172,7 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-sm-8 col-sm-offset-2">
-                                        <button id="addCategoryIncome" class="btn btn-primary center-block" data-toggle="modal" value="method" data-target="#addIncomeCategory"><span class="glyphicon glyphicon-plus"></span> Dodaj Kategorię</button>
+                                        <button id="addCategoryExpense" class="btn btn-primary center-block" data-toggle="modal" value="method" data-target="#addExpenseCategory"><span class="glyphicon glyphicon-plus"></span> Dodaj Kategorię</button>
                                         <div id="alert" class="alert alert-info text-center" style="margin-top:20px; display:none;">
                                             <button class="close"><span aria-hidden="true">&times;</span></button>
                                             <span id="alert_message"></span>
@@ -178,12 +182,16 @@
                                                 <th>Nazwa</th>
                                                 <th>Opcje</th>
                                             </thead>
-                                            {% for income in income %}
+                                            {% for expense in expense %}
                                                 <tr>
-                                                    <td>{{ income.name }}</td>
+                                                    <td>{{ expense.name }}</br>
+                                                    {% if expense.limit_value > 0 %} 
+                                                    <i>Limit: {{ expense.limit_value }} zł</i> 
+                                                    </td>
+                                                    {% endif %}
                                                     <td>
-                                                        <button class="btn btn-success btn-sm editIncomeCategory" data-toggle="modal" data-target="#editIncomeCategory" data-id="{{ income.id }}" value="{{ income.name }}"><span class="glyphicon glyphicon-edit"></span> Edytuj</button>
-                                                        <button class="btn btn-danger btn-sm deleteIncome" data-toggle="modal" data-target="#deleteIncome" data-id="{{ income.id }}" value="{{ income.name }}"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+                                                        <button class="btn btn-success btn-sm editExpenseCategory" data-toggle="modal" data-target="#editExpenseCategory" data-id="{{ expense.id }}" value="{{ expense.name }}"><span class="glyphicon glyphicon-edit"></span> Edytuj</button>
+                                                        <button class="btn btn-danger btn-sm deleteExpense" data-toggle="modal" data-target="#deleteExpense" data-id="{{ expense.id }}" value="{{ expense.name }}"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
                                                     </td>
                                                 </tr>
                                                 {% endfor %} 
@@ -229,7 +237,7 @@
         </div>
     </div>
 
-    <!-- Add New Category-->
+    <!-- Add New Income Category-->
     <div class="modal fade" id="addIncomeCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -246,6 +254,39 @@
                         </div>
                         <div class="col-sm-10">
                                 <input type="text" class="form-control" name="categoryName" required>
+                        </div>
+                    </div>
+                </div> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Zapisz</a>
+                </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Add New Expense Category-->
+    <div class="modal fade" id="addExpenseCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <center><h4 class="modal-title" id="myModalLabel">Dodaj kategorię</h4></center>
+                </div>
+                <div class="modal-body">
+                <div class="container-fluid">
+                <form action="/profile/addCategoryExpense" method="post">
+                    <div class="row form-group">
+                        <div class="col-sm-2">
+                            <label class="control-label" style="position:relative; top:7px;">Nazwa Kategorii:</label>
+                        </div>
+                        <div class="col-sm-10">
+                                <input type="text" class="form-control" name="categoryName" required>
+                                <input type="radio" id="limit" placeholder="Wprowadź Limit dla kategorii"><p>Zaznacz aby ustawić limit</p>
+                                <input id="price" type="text" class="form-control" name="price" disabled="disabled" placeholder="Wprowadzony limit musi być większy od zera" required>
                         </div>
                     </div>
                 </div> 
