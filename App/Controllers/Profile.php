@@ -42,7 +42,8 @@ class Profile extends Authenticated
       $id = $_SESSION['user_id'];
 
       $arg['payment'] = $profile->getPaymentMethods($id);
-      //$arg['income'] = $profile->getIncomeCategories($id);
+      $arg['expense'] = $profile->getExpensesCategories($id);
+      $arg['income'] = $profile->getIncomeCategories($id);
       $arg['user'] = $this->user;
 
        View::renderTemplate('Profile/show.html', $arg);
@@ -103,6 +104,23 @@ class Profile extends Authenticated
         if ($newMethod->saveMethod($id)) {
 
             Flash::addMessage('Metodę dodano pomyślnie');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się dodać nowej metody, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+        }
+    }
+
+    public function addCategoryIncome()
+    {
+        $newCategory = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if ($newCategory->saveIncomeCategory($id)) {
+
+            Flash::addMessage('Kategorię dodano pomyślnie');
             $this->redirect('/profile/show');
 
         } else {

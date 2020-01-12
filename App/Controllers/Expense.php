@@ -28,6 +28,7 @@ class Expense extends Authenticated
         $id = $_SESSION['user_id'];
 
         $arg['payment'] = $profile->getPaymentMethods($id);
+        $arg['expense'] = $profile->getExpensesCategories($id);
         View::renderTemplate('Expense/new.html', $arg);
     }
 

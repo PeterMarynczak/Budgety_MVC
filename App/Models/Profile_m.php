@@ -39,6 +39,40 @@ class Profile_m extends \Core\Model
        
     }
 
+    public function getExpensesCategories($id)
+    {
+        $sql = 'SELECT * FROM expenses_category_assigned_to_users WHERE user_id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+        
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+       
+    }
+
+    public function getIncomeCategories($id)
+    {
+        $sql = 'SELECT * FROM incomes_category_assigned_to_users WHERE user_id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+        
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+       
+    }
+
     public function saveMethod($id)
     {
         $methodName = $this->methodName;
@@ -56,6 +90,29 @@ class Profile_m extends \Core\Model
 
             $stmt->bindValue(':id', $id, PDO::PARAM_STR);
             $stmt->bindValue(':methodName', $methodName, PDO::PARAM_STR);
+
+            return $stmt->execute();
+        }
+        return false;
+    }
+
+    public function saveIncomeCategory($id) 
+    {
+        $categoryName = $this->categoryName;
+        $categoryName = ucfirst($this->categoryName);
+
+        $this->categoryIncomeExists($categoryName, $id);
+
+        if (empty($this->errors)) {
+
+            $sql = 'INSERT INTO incomes_category_assigned_to_users (user_id, name)
+                    VALUES (:id, :categoryName)';
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+            $stmt->bindValue(':categoryName', $categoryName, PDO::PARAM_STR);
 
             return $stmt->execute();
         }
@@ -127,9 +184,34 @@ class Profile_m extends \Core\Model
 
         $count = $stmt->rowCount();
 
-        if ($count > 0) {
+        if ($count > 0) 
+        {
+            $this->errors[] = 'Taka metoda już istnieje';
+        }
+    }
+
+
+    public function categoryIncomeExists($categoryName, $id)
+    {
+        $sql = 'SELECT * FROM incomes_category_assigned_to_users 
+        WHERE name = :categoryName 
+        AND user_id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':categoryName', $categoryName, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        $count = $stmt->rowCount();
+
+        if ($count > 0) 
+        {
             $this->errors[] = 'Taka kategoria już istnieje';
-            }
+        }
     }
 
 }
