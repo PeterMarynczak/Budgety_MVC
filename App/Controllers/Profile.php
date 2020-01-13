@@ -209,12 +209,12 @@ class Profile extends Authenticated
 
         if ($newCategory->updateExpenseCategory($id, $price)) {
 
-            Flash::addMessage('Nazwę kategorii zmieniono pomyślnie');
+            Flash::addMessage('kategorię zmieniono pomyślnie');
             $this->redirect('/profile/show');
 
         } else {
 
-            Flash::addMessage('Nie udało się zmienić nazwy kategorii, spróbuj ponownie', Flash::WARNING);
+            Flash::addMessage('Nie udało się zmienić kategorii, spróbuj ponownie', Flash::WARNING);
             $this->redirect('/profile/show');
             //View::renderTemplate('/');
         }

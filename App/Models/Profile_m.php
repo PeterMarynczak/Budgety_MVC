@@ -200,8 +200,6 @@ class Profile_m extends \Core\Model
         $this->validate($price);
         }
 
-        $this->categoryExpenseExists($categoryName, $id);
-
         if (empty($this->errors)) {
 
             $sql = 'UPDATE expenses_category_assigned_to_users 
