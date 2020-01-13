@@ -256,6 +256,24 @@ class Profile extends Authenticated
         }
     }
 
+    public function deleteExpenseAction()
+    {
+
+        $newExpense = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if ($newExpense->deleteExpenseCategory($id)) {
+
+            Flash::addMessage('Kategoria została usunięta');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się usunąć kategorii, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+        }
+    }
+
 }
 
 

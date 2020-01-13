@@ -42,7 +42,14 @@
          var id = $(this).attr('data-id')
          $('.changeExpenseCategory').val(title); 
          $('.expenseID').val(id); 
-         
+     }); 
+        //delete_Income_Category
+        $('.deleteExpense').click(function(){
+         var title = $(this).attr('value') 
+         var id = $(this).attr('data-id')
+         $('.expenseDelete').val(title); ;
+         $('h4.expenseToDelete').text(title);
+         $('.expenseID').val(id); 
      }); 
 
         $("#limit_value").click(function() {
@@ -480,6 +487,32 @@
             <form action="/profile/deleteIncome" method="post">
                 <input type="hidden" class="form-control incomeDelete" name="incomeDelete" value="">
                 <input type="hidden" class="form-control incomeID" name="incomeID" value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
+                    <button type="submit" class="btn btn-danger id"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete ExpenseCategory-->
+<div class="modal fade" id="deleteExpense" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <center>
+                    <h4 class="modal-title expenseToDelete" id="myModalLabel"></h4>
+                </center>
+            </div>
+            <div class="modal-body">    
+                <p class="text-center">Czy jesteś pewien, że chcesz usunąć tę kategorię?</p>
+                <h2 class="text-center method_name"></h2>
+            </div>
+            <form action="/profile/deleteExpense" method="post">
+                <input type="hidden" class="form-control expenseDelete" name="expenseDelete" value="">
+                <input type="hidden" class="form-control expenseID" name="expenseID" value="">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
                     <button type="submit" class="btn btn-danger id"><span class="glyphicon glyphicon-trash"></span> Usuń</button>

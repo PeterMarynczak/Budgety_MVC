@@ -75,7 +75,6 @@ class Profile_m extends \Core\Model
 
     public function saveMethod($id)
     {
-        $methodName = $this->methodName;
         $methodName = ucfirst($this->methodName);
 
         $this->methodExists($methodName, $id);
@@ -98,7 +97,6 @@ class Profile_m extends \Core\Model
 
     public function saveIncomeCategory($id) 
     {
-        $categoryName = $this->categoryName;
         $categoryName = ucfirst($this->categoryName);
 
         $this->categoryIncomeExists($categoryName, $id);
@@ -121,7 +119,6 @@ class Profile_m extends \Core\Model
 
     public function saveExpenseCategory($id, $price)
     {
-        $categoryName = $this->categoryName;
         $categoryName = ucfirst($this->categoryName);
 
         if ($price != 0) 
@@ -150,7 +147,6 @@ class Profile_m extends \Core\Model
 
     public function updateMethod($id)
     {
-        $changeMethod = $this->changeMethod;
         $changeMethod = ucfirst($this->changeMethod);
 
         $this->methodExists($changeMethod, $id);
@@ -227,7 +223,6 @@ class Profile_m extends \Core\Model
 
     public function deleteMethod($id)
     {
-        $methodDelete = $this->methodDelete;
         $methodDelete = ucfirst($this->methodDelete);
 
             $sql = 'DELETE FROM payment_methods_assigned_to_users 
@@ -247,7 +242,6 @@ class Profile_m extends \Core\Model
 
     public function deleteIncomeCategory($id)
     {
-        $incomeDelete = $this->incomeDelete;
         $incomeDelete = ucfirst($this->incomeDelete);
 
             $sql = 'DELETE FROM incomes_category_assigned_to_users 
@@ -257,6 +251,25 @@ class Profile_m extends \Core\Model
             $stmt = $db->prepare($sql);
 
             $stmt->bindValue(':incomeID', $this->incomeID, PDO::PARAM_STR);
+
+            if ($stmt->execute()) 
+                return true;
+            else 
+                return false;
+
+    }
+
+    public function deleteExpenseCategory($id)
+    {
+        $expenseDelete = ucfirst($this->expenseDelete);
+
+            $sql = 'DELETE FROM expenses_category_assigned_to_users 
+                    WHERE expenses_category_assigned_to_users.id = :expenseID';
+                    
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':expenseID', $this->expenseID, PDO::PARAM_STR);
 
             if ($stmt->execute()) 
                 return true;
