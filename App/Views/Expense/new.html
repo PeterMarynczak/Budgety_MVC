@@ -72,9 +72,13 @@
     <label for="category" class="col-md-2 col-lg-2">Kategoria:</label>
         <div class="col-md-10 col-lg-10">
             <select class="form-control" name="category" id="kategoria">
-
               {% for expense in expense %}
-                <option value="{{ expense.name }}">{{ expense.name }}</option>
+                <option value="{{ expense.name }}">{{ expense.name }}
+                  {% if expense.limit_value > 0 %} 
+                    </br>
+                      <i>: Limit: {{ expense.limit_value }} zł</i>
+                  {% endif %}
+                </option>
               {% endfor %}
             </select>
         </div>

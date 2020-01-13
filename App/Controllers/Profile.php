@@ -193,6 +193,33 @@ class Profile extends Authenticated
         }
     }
 
+    public function updateExpenseCategory()
+    {
+        $newCategory = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if(isset($_POST['price_value']))
+        {
+          $price = $_POST['price_value'];
+        }
+        else 
+        {
+          $price = 0;
+        }
+
+        if ($newCategory->updateExpenseCategory($id, $price)) {
+
+            Flash::addMessage('Nazwę kategorii zmieniono pomyślnie');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się zmienić nazwy kategorii, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+            //View::renderTemplate('/');
+        }
+    }
+
     public function deleteMethodAction()
     {
 

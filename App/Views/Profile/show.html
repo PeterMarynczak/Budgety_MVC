@@ -6,7 +6,7 @@
 
 <script> 
     $(document).ready(function(){ 
-        //Payment_Methods
+        //Edit payment_Methods
         $('.editMethod').click(function(){
          var title = $(this).attr('value') 
          var id = $(this).attr('data-id')
@@ -21,7 +21,7 @@
          $('h4.methodToDelete').text(title);
          $('.methodID').val(id); 
      });  
-        //Expense_Categories
+        //Edit Income_Categories
         $('.editIncomeCategory').click(function(){
          var title = $(this).attr('value') 
          var id = $(this).attr('data-id')
@@ -36,6 +36,18 @@
          $('h4.incomeToDelete').text(title);
          $('.incomeID').val(id); 
      }); 
+        //Edit Expense_Categories
+        $('.editExpenseCategory').click(function(){
+         var title = $(this).attr('value') 
+         var id = $(this).attr('data-id')
+         $('.changeExpenseCategory').val(title); 
+         $('.expenseID').val(id); 
+         
+     }); 
+
+        $("#limit_value").click(function() {
+         $("#price_value").attr('disabled', !$("#price_value").attr('disabled'));
+        }); 
 
         $("#limit").click(function() {
         $("#price").attr('disabled', !$("#price").attr('disabled'));
@@ -388,6 +400,42 @@
         </div>
     </div>
 </div>
+
+<!-- Edit Expense Category-->
+<div class="modal fade" id="editExpenseCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <center><h4 class="modal-title" id="myModalLabel">Edycja Kategorii</h4></center>
+            </div>
+            <div class="modal-body">
+            <div class="container-fluid">
+            <form action="/profile/updateExpenseCategory" method="post">
+                <input type="hidden" class="id" name="id">
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label class="control-label" style="position:relative; top:7px;">Nazwa kategorii:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control changeExpenseCategory" name="changeExpenseCategory" value="">
+                        <input type="radio" id="limit_value" placeholder="Wprowadź Limit dla kategorii"><p>Zaznacz aby ustawić limit</p>
+                        <input id="price_value" type="text" class="form-control" name="price_value" disabled="disabled" placeholder="Wprowadzony limit musi być większy od zera" required>
+                        <input type="hidden" class="form-control expenseID" name="expenseID" value="">
+                    </div>
+                </div>
+            </div> 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
+                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-check"></span> Zmień</a>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 <!-- Delete Method-->
 <div class="modal fade" id="deleteMethod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -174,7 +174,6 @@ class Profile_m extends \Core\Model
 
     public function updateIncomeCategory($id)
     {
-        $changeIncomeCategory = $this->changeIncomeCategory;
         $changeIncomeCategory = ucfirst($this->changeIncomeCategory);
 
         $this->methodExists($changeIncomeCategory, $id);
@@ -190,6 +189,36 @@ class Profile_m extends \Core\Model
 
             $stmt->bindValue(':changeIncomeCategory', $changeIncomeCategory, PDO::PARAM_STR);
             $stmt->bindValue(':incomeID', $this->incomeID, PDO::PARAM_STR);
+
+            return $stmt->execute();
+        }
+        return false;
+    }
+
+    public function updateExpenseCategory($id, $price)
+    {
+        $categoryName = ucfirst($this->changeExpenseCategory);
+
+        if ($price != 0) 
+        {
+        $this->validate($price);
+        }
+
+        $this->categoryExpenseExists($categoryName, $id);
+
+        if (empty($this->errors)) {
+
+            $sql = 'UPDATE expenses_category_assigned_to_users 
+                    SET name = :categoryName, limit_value = :price 
+                    WHERE expenses_category_assigned_to_users.id = :expenseID';
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':categoryName', $categoryName, PDO::PARAM_STR);
+            $stmt->bindValue(':expenseID', $this->expenseID, PDO::PARAM_STR);
+            $stmt->bindValue(':price', $price, PDO::PARAM_STR);
+            
 
             return $stmt->execute();
         }
