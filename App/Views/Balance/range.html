@@ -19,6 +19,7 @@
 
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChart2);
 
       function drawChart() {
 
@@ -31,12 +32,35 @@
 
         var options = {
           title: 'Twoje wydatki:',
-          width: 500,
-          height: 350,
+          width: 450,
+          height: 300,
+          'backgroundColor': 'transparent',
           is3D: true,
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        var chart = new google.visualization.PieChart(document.getElementById('piechartExp'));
+
+        chart.draw(data, options);
+
+      }
+
+      function drawChart2() {
+        var data = google.visualization.arrayToDataTable([
+          ['Name', 'Value'],
+          {% for pieChIncome in pieChartIncome %}
+              ['{{ pieChIncome.name }}', {{ pieChIncome['SUM(e.amount)'] }}],
+            {% endfor %}
+        ]);
+
+        var options = {
+          title: 'Twoje wpływy:',
+          width: 450,
+          height: 300,
+          'backgroundColor': 'transparent',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechartInc'));
 
         chart.draw(data, options);
       }
@@ -144,6 +168,8 @@
             </tbody>
           </table>
 
+          <div id="piechartInc"></div>
+
     </div>
 
     <div class="col-lg-5 offset-lg-1">
@@ -182,24 +208,19 @@
               </tbody>
             </table>
 
+            <div id="piechartExp"></div>
+
     </div>
 
     <div class="col-lg-12 p-3 mb-2 bg-info text-white text-center" id="balanceMessage">
-          <div>Bilans finansowy w wybranym okresie: {{ sumIncome - sumExp }} zł .</div>
-            <div>
-            {% if sumIncome - sumExp >= 0 %}
-            Gratulacje! Doskonale dysponujesz własnymi środkami finansowymi!
-            {% else %}
-            Uważaj! Jesteś na minusie!
-            {% endif %}
-            </div>
-        </div>
-  
-    <div class="col-lg-2"></div>
-        <div class="col-lg-offset-3 col-lg-8">
-        <div id="piechart"></div>
+      <h4>Bilans finansowy w wybranym okresie: {{ sumIncome - sumExp }} zł .</h4>
+        {% if sumIncome - sumExp >= 0 %}
+        <h4>Gratulacje! Doskonale dysponujesz własnymi środkami finansowymi!</h4>
+        {% else %}
+        <h4>Uważaj! Jesteś na minusie!</h4>
+        {% endif %}
     </div>
-    
+        
   </div>
 </div>
 {% endif %}

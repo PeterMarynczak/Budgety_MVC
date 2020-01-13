@@ -70,6 +70,18 @@ class User extends \Core\Model
         return false;
     }
 
+    public static function deleteUser()
+    {
+            $id = $_SESSION['user_id'];
+
+            $sql = 'DELETE FROM users WHERE id = :id';
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+            $stmt->execute();
+    }
+
     /**
      * Validate current property values, adding valiation error messages to the errors array property
      *

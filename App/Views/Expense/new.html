@@ -40,22 +40,29 @@
 
     <div class="form-group">
         <div class="row">
-          <h4 class="col-md-2">
+          <div class="col-md-2">
             Sposób płatności:
-          </h4>
+          </div>
           <div class="col-md-10 col-lg-10">
-            <label for="payment" class="radio">
-              <input type="radio" name="payment" id="gotowka" value="Gotówka" checked>
-              Gotówka
-            </label>
-            <label class="radio">
-              <input type="radio" name="payment" id="debetowa" value="Karta debetowa">
-              Karta debetowa
-            </label>
-            <label class="radio">
-              <input type="radio" name="payment" id="kredytowa" value="Karta kredytowa">
-              Karta kredytowa
-            </label>
+
+            {% for payment in payment %}
+
+              {% if loop.index0 == 0 %}
+                <label class="radio">
+                  <input type="radio" name="payment" id="{{ payment.name }}" value="{{ payment.name }}" checked>
+                  {{ payment.name }}
+                </label>
+              {% endif %}
+
+              {% if loop.index0 > 0 %}
+                <label class="radio">
+                  <input type="radio" name="payment" id="{{ payment.name }}" value="{{ payment.name }}">
+                  {{ payment.name }}
+                </label>
+              {% endif %}
+
+            {% endfor %}
+
          </div>
       </div>
     </div>
@@ -65,22 +72,14 @@
     <label for="category" class="col-md-2 col-lg-2">Kategoria:</label>
         <div class="col-md-10 col-lg-10">
             <select class="form-control" name="category" id="kategoria">
-              <option value="Transport">Transport</option>
-              <option value="Książki">Książki</option>
-              <option value="Jedzenie">Jedzenie</option>
-              <option value="Mieszkanie">Mieszkanie</option>
-              <option value="Telekomunikacja">Telekomunikacja</option>
-              <option value="Opieka zdrowotna">Opieka zdrowotna</option>
-              <option value="Ubranie">Ubranie</option>
-              <option value="Higiena">Higiena</option>
-              <option value="Dzieci">Dzieci</option>
-              <option value="Rozrywka">Rozrywka</option>
-              <option value="Podróż">Podróż</option>
-              <option value="Oszczędności">Oszczędności</option>
-              <option value="Na emeryturę">Na emeryturę</option>
-              <option value="Spłata długów">Spłata długów</option>
-              <option value="Darowizna">Darowizna</option>
-              <option value="Inne wydatki">Inne wydatki</option>
+              {% for expense in expense %}
+                <option value="{{ expense.name }}">{{ expense.name }}
+                  {% if expense.limit_value > 0 %} 
+                    </br>
+                      <i>: Limit: {{ expense.limit_value }} zł</i>
+                  {% endif %}
+                </option>
+              {% endfor %}
             </select>
         </div>
     </div>

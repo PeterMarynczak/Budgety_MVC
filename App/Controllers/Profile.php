@@ -5,6 +5,8 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Auth;
 use \App\Flash;
+use \App\Models\User;
+use \App\Models\Profile_m;
 
 /**
  * Profile controller
@@ -35,9 +37,16 @@ class Profile extends Authenticated
      */
     public function showAction()
     {
-       View::renderTemplate('Profile/show.html', [
-            'user' => $this->user
-        ]);
+
+      $profile = new Profile_m;
+      $id = $_SESSION['user_id'];
+
+      $arg['payment'] = $profile->getPaymentMethods($id);
+      $arg['expense'] = $profile->getExpensesCategories($id);
+      $arg['income'] = $profile->getIncomeCategories($id);
+      $arg['user'] = $this->user;
+
+       View::renderTemplate('Profile/show.html', $arg);
     }
     
     /**
@@ -72,6 +81,199 @@ class Profile extends Authenticated
             ]);
         }
     }
+
+    /**
+     * delete the profile
+     *
+     * @return void
+     */
+    public function delete()
+    {
+        User::deleteUser();
+        Flash::addMessage('Twoje konto zostało usunięte');
+        $this->redirect('/login');
+    }
+
+
+    public function addMethodAction()
+    {
+
+        $newMethod = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if ($newMethod->saveMethod($id)) {
+
+            Flash::addMessage('Metodę dodano pomyślnie');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się dodać nowej metody, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+        }
+    }
+
+    public function addCategoryIncome()
+    {
+        $newCategory = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if ($newCategory->saveIncomeCategory($id)) {
+
+            Flash::addMessage('Kategorię dodano pomyślnie');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się dodać nowej kategorii, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+        }
+    }
+
+    public function addCategoryExpense()
+    {
+        $newCategory = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if(isset($_POST['price']))
+        {
+          $price = $_POST['price'];
+        }
+        else 
+        {
+          $price = 0;
+        }
+
+        if ($newCategory->saveExpenseCategory($id, $price)) {
+
+            Flash::addMessage('Kategorię dodano pomyślnie');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się dodać nowej kategorii, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+        }
+    }
+
+    public function updateMethodAction()
+    {
+
+        $newMethod = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if ($newMethod->updateMethod($id)) {
+            //echo '<pre>' , var_dump($newMethod) , '</pre>';
+            Flash::addMessage('Nazwę metody zmieniono pomyślnie');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się zmienić nazwy metody, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+            //View::renderTemplate('/');
+        }
+    }
+
+    public function updateIncomeCategory()
+    {
+        $newCategory = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if ($newCategory->updateIncomeCategory($id)) {
+
+            Flash::addMessage('Nazwę kategorii zmieniono pomyślnie');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się zmienić nazwy kategorii, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+            //View::renderTemplate('/');
+        }
+    }
+
+    public function updateExpenseCategory()
+    {
+        $newCategory = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if(isset($_POST['price_value']))
+        {
+          $price = $_POST['price_value'];
+        }
+        else 
+        {
+          $price = 0;
+        }
+
+        if ($newCategory->updateExpenseCategory($id, $price)) {
+
+            Flash::addMessage('kategorię zmieniono pomyślnie');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się zmienić kategorii, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+            //View::renderTemplate('/');
+        }
+    }
+
+    public function deleteMethodAction()
+    {
+
+        $newMethod = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if ($newMethod->deleteMethod($id)) {
+
+            Flash::addMessage('Metoda została usunięta');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się usunąć metody, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+        }
+    }
+
+    public function deleteIncomeAction()
+    {
+
+        $newIncome = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if ($newIncome->deleteIncomeCategory($id)) {
+
+            Flash::addMessage('Kategoria została usunięta');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się usunąć kategorii, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+        }
+    }
+
+    public function deleteExpenseAction()
+    {
+
+        $newExpense = new Profile_m($_POST);
+        $id = $_SESSION['user_id'];
+
+        if ($newExpense->deleteExpenseCategory($id)) {
+
+            Flash::addMessage('Kategoria została usunięta');
+            $this->redirect('/profile/show');
+
+        } else {
+
+            Flash::addMessage('Nie udało się usunąć kategorii, spróbuj ponownie', Flash::WARNING);
+            $this->redirect('/profile/show');
+        }
+    }
+
 }
 
 

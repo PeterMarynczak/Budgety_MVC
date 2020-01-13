@@ -2,25 +2,93 @@
 
 {% block title %}Konfiguracja{% endblock %}
 
+{% block footer %}
+
+<script> 
+    $(document).ready(function(){ 
+        //Edit payment_Methods
+        $('.editMethod').click(function(){
+         var title = $(this).attr('value') 
+         var id = $(this).attr('data-id')
+         $('.changeMethod').val(title); 
+         $('.methodID').val(id); 
+     });   
+        //delete_Method
+        $('.deleteMethod').click(function(){
+         var title = $(this).attr('value') 
+         var id = $(this).attr('data-id')
+         $('.methodDelete').val(title); ;
+         $('h4.methodToDelete').text(title);
+         $('.methodID').val(id); 
+     });  
+        //Edit Income_Categories
+        $('.editIncomeCategory').click(function(){
+         var title = $(this).attr('value') 
+         var id = $(this).attr('data-id')
+         $('.changeIncomeCategory').val(title); 
+         $('.incomeID').val(id); 
+     }); 
+        //delete_Income_Category
+        $('.deleteIncome').click(function(){
+         var title = $(this).attr('value') 
+         var id = $(this).attr('data-id')
+         $('.incomeDelete').val(title); ;
+         $('h4.incomeToDelete').text(title);
+         $('.incomeID').val(id); 
+     }); 
+        //Edit Expense_Categories
+        $('.editExpenseCategory').click(function(){
+         var title = $(this).attr('value') 
+         var id = $(this).attr('data-id')
+         $('.changeExpenseCategory').val(title); 
+         $('.expenseID').val(id); 
+     }); 
+        //delete_Income_Category
+        $('.deleteExpense').click(function(){
+         var title = $(this).attr('value') 
+         var id = $(this).attr('data-id')
+         $('.expenseDelete').val(title); ;
+         $('h4.expenseToDelete').text(title);
+         $('.expenseID').val(id); 
+     }); 
+
+        $("#limit_value").click(function() {
+         $("#price_value").attr('disabled', !$("#price_value").attr('disabled'));
+        }); 
+
+        $("#limit").click(function() {
+        $("#price").attr('disabled', !$("#price").attr('disabled'));
+        }); 
+   }) 
+
+</script>
+
+{% endblock %}
+
 {% block body %}
 
     <section id="MyProfile">
         <div class="container top-row-logged">
+
             <div class="row">
                 <div class="panel-group" id="harmony_menu">
                     <!-- MyProfile element 1 -->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel MyProfile_panel">
-                        <div class="panel-heading">
+                        <div class="panel-heading customPanel">
                              <a href="#MyProfile01" data-toggle="collapse" data-parent="#harmony_menu">
+<<<<<<< HEAD
                                 <h4>Edycja Użytkownika<span class="glyphicon glyphicon-chevron-right"></span></h4>
+=======
+                                <h4><span class="glyphicon glyphicon-user"></span> Profil</h4>
+>>>>>>> Ajax__features
                             </a>
                         </div>
                         <div id="MyProfile01" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <table class="table">
+                                <table class="table myTable" style=".table {margin:auto;width: 50% !important;}">
                                   <thead>
                                     <tr>
-                                      <th scope="col">Name</th>
+                                      <th scope="col">Imię</th>
                                       <th scope="col">Email</th>
                                     </tr>
                                   </thead>
@@ -32,7 +100,13 @@
                                   </tbody>
                                 </table>    
                                 <div class = "text-center">
+<<<<<<< HEAD
                                     <a href="/profile/edit"><button type="button" class="btn btn-default btn-sm">Edytuj</button></a>
+=======
+                                    <a href="/profile/edit"><button type="button" class="btn btn-default btn-sm">Edycja</button></a>
+                                    <!-- Button trigger modal -->
+                                    <a href="" role="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUser">Usuń konto</a>
+>>>>>>> Ajax__features
                                 </div>
                             </div>
                         </div>
@@ -40,30 +114,126 @@
 
                     <!-- MyProfile element 2 -->
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel MyProfile_panel">
-                        <div class="panel-heading">
+                        <div class="panel-heading customPanel">
                             <a href="#MyProfile02" data-toggle="collapse" data-parent="#harmony_menu">
+<<<<<<< HEAD
                                 <h4>Edycja Kategorii<span class="glyphicon glyphicon-chevron-right"></span></h4>
+=======
+                                <h4><span class="glyphicon glyphicon-paperclip"></span> Metody Płatności</h4>
+>>>>>>> Ajax__features
                             </a>
                         </div>
                         <div id="MyProfile02" class="panel-collapse collapse">
                             <div class="panel-body">
+<<<<<<< HEAD
                                 <button type="button" class="btn btn-primary btn-lg btn-block">Kategorie przychodów</button>
                                 <button type="button" class="btn btn-secondary btn-lg btn-block">Kategorie wydatków</button>
+=======
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2">
+                                        <button id="addMethod" class="btn btn-primary center-block" data-toggle="modal" value="method" data-target="#add"><span class="glyphicon glyphicon-plus"></span> Dodaj metodę</button>
+                                        <div id="alert" class="alert alert-info text-center" style="margin-top:20px; display:none;">
+                                            <button class="close"><span aria-hidden="true">&times;</span></button>
+                                            <span id="alert_message"></span>
+                                        </div>  
+                                        <table class="table table-bordered table-striped" style="margin-top:20px;">
+                                            <thead>
+                                                <th>Nazwa</th>
+                                                <th>Opcje</th>
+                                            </thead>
+                                            {% for payment in payment %}
+                                                <tr>
+                                                    <td>{{ payment.name }}</td>
+                                                    <td>
+                                                        <button class="btn btn-success btn-sm editMethod" data-toggle="modal" data-target="#editMethod" data-id="{{ payment.id }}" value="{{ payment.name }}"><span class="glyphicon glyphicon-edit"></span> Edytuj</button>
+                                                        <button class="btn btn-danger btn-sm deleteMethod" data-toggle="modal" data-target="#deleteMethod" data-id="{{ payment.id }}" value="{{ payment.name }}"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %} 
+                                        </table>
+                                    </div>
+                                </div>  
+>>>>>>> Ajax__features
                             </div>
                         </div>
                     </div>
 
                     <!-- MyProfile element 3 -->
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel MyProfile_panel">
-                        <div class="panel-heading">
+                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel MyProfile_panel">
+                        <div class="panel-heading customPanel">
                             <a href="#MyProfile03" data-toggle="collapse" data-parent="#harmony_menu">
-                                <h3></h3>
-                                <h6><span class="glyphicon glyphicon-chevron-right"></span></h6>
+                                <h4><span class="glyphicon glyphicon-upload"></span> Kategorie Przychodów</h4>
                             </a>
                         </div>
                         <div id="MyProfile03" class="panel-collapse collapse">
                             <div class="panel-body">
-                                
+                                    <div class="row">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <button id="addCategoryIncome" class="btn btn-primary center-block" data-toggle="modal" value="method" data-target="#addIncomeCategory"><span class="glyphicon glyphicon-plus"></span> Dodaj Kategorię</button>
+                                            <div id="alert" class="alert alert-info text-center" style="margin-top:20px; display:none;">
+                                                <button class="close"><span aria-hidden="true">&times;</span></button>
+                                                <span id="alert_message"></span>
+                                            </div>  
+                                            <table class="table table-bordered table-striped" style="margin-top:20px;">
+                                                <thead>
+                                                    <th>Nazwa</th>
+                                                    <th>Opcje</th>
+                                                </thead>
+                                                {% for income in income %}
+                                                    <tr>
+                                                        <td>{{ income.name }}</td>
+                                                        <td>
+                                                            <button class="btn btn-success btn-sm editIncomeCategory" data-toggle="modal" data-target="#editIncomeCategory" data-id="{{ income.id }}" value="{{ income.name }}"><span class="glyphicon glyphicon-edit"></span> Edytuj</button>
+                                                            <button class="btn btn-danger btn-sm deleteIncome" data-toggle="modal" data-target="#deleteIncome" data-id="{{ income.id }}" value="{{ income.name }}"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %} 
+                                            </table>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- MyProfile element 4 -->
+                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 panel MyProfile_panel">
+                        <div class="panel-heading customPanel">
+                            <a href="#MyProfile04" data-toggle="collapse" data-parent="#harmony_menu">
+                                <h4><span class="glyphicon glyphicon-download"></span> Kategorie Wydatków</h4>
+                            </a>
+                        </div>
+                        <div id="MyProfile04" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2">
+                                        <button id="addCategoryExpense" class="btn btn-primary center-block" data-toggle="modal" value="method" data-target="#addExpenseCategory"><span class="glyphicon glyphicon-plus"></span> Dodaj Kategorię</button>
+                                        <div id="alert" class="alert alert-info text-center" style="margin-top:20px; display:none;">
+                                            <button class="close"><span aria-hidden="true">&times;</span></button>
+                                            <span id="alert_message"></span>
+                                        </div>  
+                                        <table class="table table-bordered table-striped" style="margin-top:20px;">
+                                            <thead>
+                                                <th>Nazwa</th>
+                                                <th>Opcje</th>
+                                            </thead>
+                                            {% for expense in expense %}
+                                                <tr>
+                                                    <td>{{ expense.name }}</br>
+                                                    {% if expense.limit_value > 0 %} 
+                                                    <i>Limit: {{ expense.limit_value }} zł</i> 
+                                                    </td>
+                                                    {% endif %}
+                                                    <td>
+                                                        <button class="btn btn-success btn-sm editExpenseCategory" data-toggle="modal" data-target="#editExpenseCategory" data-id="{{ expense.id }}" value="{{ expense.name }}"><span class="glyphicon glyphicon-edit"></span> Edytuj</button>
+                                                        <button class="btn btn-danger btn-sm deleteExpense" data-toggle="modal" data-target="#deleteExpense" data-id="{{ expense.id }}" value="{{ expense.name }}"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %} 
+                                        </table>
+                                    </div>
+                                </div>  
                             </div>
                         </div>
                     </div>
@@ -72,4 +242,337 @@
         </div>
     </section>
 
+    <!-- Add New Method-->
+    <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <center><h4 class="modal-title" id="myModalLabel">Dodaj kategorię</h4></center>
+                </div>
+                <div class="modal-body">
+                <div class="container-fluid">
+                <form action="/profile/addMethod" method="post">
+                    <div class="row form-group">
+                        <div class="col-sm-2">
+                            <label class="control-label" style="position:relative; top:7px;">Nazwa Metody:</label>
+                        </div>
+                        <div class="col-sm-10">
+                                <input type="text" class="form-control" name="methodName" required>
+                        </div>
+                    </div>
+                </div> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Zapisz</a>
+                </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Add New Income Category-->
+    <div class="modal fade" id="addIncomeCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <center><h4 class="modal-title" id="myModalLabel">Dodaj kategorię</h4></center>
+                </div>
+                <div class="modal-body">
+                <div class="container-fluid">
+                <form action="/profile/addCategoryIncome" method="post">
+                    <div class="row form-group">
+                        <div class="col-sm-2">
+                            <label class="control-label" style="position:relative; top:7px;">Nazwa Kategorii:</label>
+                        </div>
+                        <div class="col-sm-10">
+                                <input type="text" class="form-control" name="categoryName" required>
+                        </div>
+                    </div>
+                </div> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Zapisz</a>
+                </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Add New Expense Category-->
+    <div class="modal fade" id="addExpenseCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <center><h4 class="modal-title" id="myModalLabel">Dodaj kategorię</h4></center>
+                </div>
+                <div class="modal-body">
+                <div class="container-fluid">
+                <form action="/profile/addCategoryExpense" method="post">
+                    <div class="row form-group">
+                        <div class="col-sm-2">
+                            <label class="control-label" style="position:relative; top:7px;">Nazwa Kategorii:</label>
+                        </div>
+                        <div class="col-sm-10">
+                                <input type="text" class="form-control" name="categoryName" required>
+                                <input type="radio" id="limit" placeholder="Wprowadź Limit dla kategorii"><p>Zaznacz aby ustawić limit</p>
+                                <input id="price" type="text" class="form-control" name="price" disabled="disabled" placeholder="Wprowadzony limit musi być większy od zera" required>
+                        </div>
+                    </div>
+                </div> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span> Zapisz</a>
+                </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Delete User account -->
+    <div id="deleteUser" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Potwierdzenie usunięcia konta</h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Czy jesteś pewien, że chcesz usunąć swoje konto?</p>
+                    <p class="text-secondary"><small>Wszystkie Twoje dane zostaną utracone.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+                    <a href="/profile/delete"><button type="submit" class="btn btn-danger">Potwierdź</button></a>     
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Edit Method-->
+<div class="modal fade" id="editMethod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <center><h4 class="modal-title" id="myModalLabel">Edycja Metody</h4></center>
+            </div>
+            <div class="modal-body">
+            <div class="container-fluid">
+            <form action="/profile/updateMethod" method="post">
+                <input type="hidden" class="id" name="id">
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label class="control-label" style="position:relative; top:7px;">Nazwa metody:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control changeMethod" name="changeMethod" value="">
+                        <input type="hidden" class="form-control methodID" name="methodID" value="">
+                    </div>
+                </div>
+            </div> 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
+                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-check"></span> Zmień</a>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Edit Income Category-->
+<div class="modal fade" id="editIncomeCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <center><h4 class="modal-title" id="myModalLabel">Edycja Kategorii</h4></center>
+            </div>
+            <div class="modal-body">
+            <div class="container-fluid">
+            <form action="/profile/updateIncomeCategory" method="post">
+                <input type="hidden" class="id" name="id">
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label class="control-label" style="position:relative; top:7px;">Nazwa kategorii:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control changeIncomeCategory" name="changeIncomeCategory" value="">
+                        <input type="hidden" class="form-control incomeID" name="incomeID" value="">
+                    </div>
+                </div>
+            </div> 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
+                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-check"></span> Zmień</a>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Edit Expense Category-->
+<div class="modal fade" id="editExpenseCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <center><h4 class="modal-title" id="myModalLabel">Edycja Kategorii</h4></center>
+            </div>
+            <div class="modal-body">
+            <div class="container-fluid">
+            <form action="/profile/updateExpenseCategory" method="post">
+                <input type="hidden" class="id" name="id">
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <label class="control-label" style="position:relative; top:7px;">Nazwa kategorii:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control changeExpenseCategory" name="changeExpenseCategory" value="">
+                        <input type="radio" id="limit_value" placeholder="Wprowadź Limit dla kategorii"><p>Zaznacz aby ustawić limit</p>
+                        <input id="price_value" type="text" class="form-control" name="price_value" disabled="disabled" placeholder="Wprowadzony limit musi być większy od zera" required>
+                        <input type="hidden" class="form-control expenseID" name="expenseID" value="">
+                    </div>
+                </div>
+            </div> 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
+                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-check"></span> Zmień</a>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Delete Method-->
+<div class="modal fade" id="deleteMethod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <center>
+                    <h4 class="modal-title methodToDelete" id="myModalLabel"></h4>
+                </center>
+            </div>
+            <div class="modal-body">    
+                <p class="text-center">Czy jesteś pewien, że chcesz usunąć tę metodę?</p>
+                <h2 class="text-center method_name"></h2>
+            </div>
+            <form action="/profile/deleteMethod" method="post">
+                <input type="hidden" class="form-control methodDelete" name="methodDelete" value="">
+                <input type="hidden" class="form-control methodID" name="methodID" value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
+                    <button type="submit" class="btn btn-danger id"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete IncomeCategory-->
+<div class="modal fade" id="deleteIncome" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <center>
+                    <h4 class="modal-title incomeToDelete" id="myModalLabel"></h4>
+                </center>
+            </div>
+            <div class="modal-body">    
+                <p class="text-center">Czy jesteś pewien, że chcesz usunąć tę kategorię?</p>
+                <h2 class="text-center method_name"></h2>
+            </div>
+            <form action="/profile/deleteIncome" method="post">
+                <input type="hidden" class="form-control incomeDelete" name="incomeDelete" value="">
+                <input type="hidden" class="form-control incomeID" name="incomeID" value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
+                    <button type="submit" class="btn btn-danger id"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete ExpenseCategory-->
+<div class="modal fade" id="deleteExpense" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <center>
+                    <h4 class="modal-title expenseToDelete" id="myModalLabel"></h4>
+                </center>
+            </div>
+            <div class="modal-body">    
+                <p class="text-center">Czy jesteś pewien, że chcesz usunąć tę kategorię?</p>
+                <h2 class="text-center method_name"></h2>
+            </div>
+            <form action="/profile/deleteExpense" method="post">
+                <input type="hidden" class="form-control expenseDelete" name="expenseDelete" value="">
+                <input type="hidden" class="form-control expenseID" name="expenseID" value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Anuluj</button>
+                    <button type="submit" class="btn btn-danger id"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

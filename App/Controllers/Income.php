@@ -6,6 +6,7 @@ use \Core\View;
 use \App\Auth;
 use \App\Flash;
 use \App\Models\AddIncome;
+use \App\Models\Profile_m;
 
 /**
  * Items controller (example)
@@ -23,7 +24,11 @@ class Income extends Authenticated
      */
     public function newAction()
     {
-        View::renderTemplate('Income/new.html');
+        $profile = new Profile_m;
+        $id = $_SESSION['user_id'];
+
+        $arg['income'] = $profile->getIncomeCategories($id);
+        View::renderTemplate('Income/new.html', $arg);
     }
 
     /**

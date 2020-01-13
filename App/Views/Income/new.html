@@ -27,11 +27,11 @@
                   </div>
             </div>
           
-            
-            <div class="form-group">
+      
+          <div class="form-group">
             <div class="row">
               <label for="date_income" class="col-md-2">
-            Data uzyskania:
+                Data uzyskania:
               </label>
               <div class="col-md-10 input-group">
                 <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -43,29 +43,32 @@
 
       <div class="form-group">
         <div class="row">
-          <h4 class="col-md-2">
-            Kategoria:
-          </h4>
-          <div class="col-md-10">
-            <label class="radio">
-              <input type="radio" name="category" id="Salary" value="Wynagrodzenie" checked>
-              Wynagrodzenie
-            </label>
-            <label class="radio">
-              <input type="radio" name="category" id="Interest" value="Odsetki bankowe">
-              Odsetki bankowe
-            </label>
-            <label class="radio">
-              <input type="radio" name="category" id="Allegro" value="Allegro">
-              Sprzedaż na Allegro
-            </label>
-            <label class="radio">
-              <input type="radio" name="category" id="Another" value="Inne">
-              Inne
-            </label>
-            </div>
-          </div>
-        </div>
+            <h4 class="col-md-2">
+              Kategoria:
+            </h4>
+            <div class="col-md-10 col-lg-10">
+
+              {% for income in income %}
+
+                {% if loop.index0 == 0 %}
+                  <label class="radio">
+                    <input type="radio" name="category" id="{{ income.name }}" value="{{ income.name }}" checked>
+                    {{ income.name }}
+                  </label>
+                {% endif %}
+
+                {% if loop.index0 > 0 %}
+                  <label class="radio">
+                    <input type="radio" name="category" id="{{ income.name }}" value="{{ income.name }}">
+                    {{ income.name }}
+                  </label>
+                {% endif %}
+
+              {% endfor %}
+
+           </div>
+       </div>
+    </div>
 
         <div class="form-group shadow-textarea">
             <div class="row">

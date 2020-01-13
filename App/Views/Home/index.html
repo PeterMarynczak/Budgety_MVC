@@ -5,15 +5,16 @@
 {% block body %}
 
     {% if current_user %}
+   
        <h5 style="text-align: center;">Witaj {{ current_user.name }} !</h5>
 
     <!--###############################-->
     <!--Carousel ######################-->
 
-        <section class="about" style="margin-top: 40px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 about_top">       
+        <section>
+        <!-- <div class="container"> -->
+            <div class="row top-row-alert">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 about_top text-center">       
                     <h2>Kontrola własnego <strong>budżetu</strong></h2>
                     <h4>Analizuj własne przychody i wydatki, to bardzo proste, Kontrola nad własnymi finansami zabezpiecza przed wpadnięciem w finansowe tarapaty i ułatwi spełnianie marzeń</h4>
                 </div>
@@ -41,14 +42,14 @@
                     </div>
                 </div>                      
             </div>
-        </div>
+       <!--  </div> -->
     </section>
 
 	<!--###############################-->
     {% else %}
 
-<div class="container top-row-unlogged" style="margin-top: 80px;">
-    <div class="row">
+<!-- <div class="top-row-unlogged" style="margin-top: 80px;"> -->
+    <div class="row top-row-unlogged">
         <div class="col-sm-12">
             <div class="text-center">
                 <a href="/login"><button id = "log-reg" type="button" class="btn btn-light btn-sm">Logowanie</button></a>
@@ -57,7 +58,7 @@
             </div>
         </div>
     </div>
-</div>
+<!-- </div> -->
 
     <section id="index_body">
         <div id="pokaz-slajdow" class="carousel slide" data-ride="carousel">

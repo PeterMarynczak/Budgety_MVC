@@ -6,20 +6,19 @@
     <title>{% block title %}{% endblock %}</title>
     {% block head %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" media="all" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700&subset=latin,latin-ext">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-    <link href="/css/styles.css" rel="stylesheet" />
-
-    <link rel="stylesheet" type="text/css" media="all" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700&subset=latin,latin-ext">
     {% endblock %}
 </head>
-<body style = "background-image: url({{ base_path ~ directory }}/images/money1.jpg);">
+<body style = "background-image: url({{ base_path ~ directory }}/images/brick.png);">
     <!--###############################-->
     <!-- MENU GÓRNE ###################-->
     <!--###############################-->
     
 {% if not current_user %}
+<div class="container">
    <header style = "background-image: url({{ base_path ~ directory }}/images/plash.jpg);"> 
        <nav id = "nav-style" class="navbar navbar-default navbar-fixed-top">
             <div class="container">
@@ -31,17 +30,17 @@
     </header>
 {% for message in flash_messages %}
     <!-- <div class="alert"> -->
-    <div class="alert alert-{{ message.type }} top-row-logged center-block">
+    <div class="alert alert-{{ message.type }} top-row-alert center-block">
         {{ message.body }}
     </div>
 {% endfor %}
     
                     
-     {% elseif current_user %}               
-                    
+{% elseif current_user %}               
+<div class="container">              
     <header>   
         <nav class="navbar navbar-default navbar-fixed-top">
-          <div class="container-fluid">
+          <!-- <div class="container-fluid"> -->
 
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#moje-menu">
@@ -63,13 +62,13 @@
                 <li class="nav-item social pull-right"><a class="nav-link" href="/logout"><span class="glyphicon glyphicon-off"></span> Wyloguj się</a></li>
               </ul>
             </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
+          <!-- </div> --><!-- /.container-fluid -->
         </nav> 
     </header> 
     
     {% for message in flash_messages %}
     <!-- <div class="alert"> -->
-    <div class="alert alert-{{ message.type }} top-row-logged center-block">
+    <div class="alert alert-{{ message.type }} top-row-unlogged center-block">
         {{ message.body }}
     </div>
     {% endfor %}
@@ -79,6 +78,8 @@
 
         {% block body %}
         {% endblock %}
+
+    </div>
     
         <footer class="navbar page-footer font-small blue navbar-fixed-bottom" id = "stopka">
               <div class="footer-copyright text-center py-3">
@@ -87,11 +88,10 @@
         </footer>
     
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="js/app.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
-
+    <script src="js/app.js"></script>
 
     <!--###############################-->
     <!-- STOPKA ###################-->
