@@ -5,12 +5,59 @@
 {% block footer %}
     
     <script src="/js/app.js"></script>
+    <script>
+      $(document).ready(function (){
+
+        //get values based on selected Category from drop_down list
+        $("#kategoria").change(function(){
+
+          //get value from input amount
+            var expenseValue = document.getElementById("expense_value").value;
+          //get category name based on selected option 
+            var expenseCategory= $('select').find('option:selected').val();
+          //get category id based on selected option 
+            var expenseId = $(this).children(":selected").attr("id");
+            // $("#test2").html(data);
+            // $("#test").html(expenseValue);
+            $.post("/Expense/limit", {
+
+              expenseValue: expenseValue,
+              expenseCategory: expenseCategory,
+              expenseId: expenseId
+
+          }, function(data, status) {
+              $("#limitMessage").html(data);
+          });
+
+            
+        });
+
+        $("#testAjax").keyup(function(){
+          var name = $("#testAjax").val();
+            $.post("/Expense/test", {
+              suggestion: name
+          }, function(data, status) {
+              $("#test").html(data);
+          });
+        });
+      });
+
+    </script>
 
 {% endblock %}
 
 {% block body %}
 
 <div class="container top-row-logged">
+
+<div id="limitMessage">
+     
+</div>
+
+<!-- <input id="testAjax" type="text" name="name">
+<p id="test"></p>
+<p id="test2"></p> -->
+
     <div class="col-md-offset-2 col-md-8 col-lg-offset-1 col-lg-10">
       <h3 class="text-center">Dodaj wydatek</h3>
       <form action="/expense/add" method="post">
@@ -21,7 +68,7 @@
                   </label>
                   <div class="col-md-10 col-lg-10 input-group">
                     <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-usd"></span></span>
-                    <input type="text" class="form-control" name="amount" placeholder="Wprowadź kwotę wydatku" required>
+                    <input id="expense_value" type="text" class="form-control" name="amount" placeholder="Wprowadź kwotę wydatku" required>
                   </div>
               </div>
         </div>
@@ -73,7 +120,7 @@
         <div class="col-md-10 col-lg-10">
             <select class="form-control" name="category" id="kategoria">
               {% for expense in expense %}
-                <option value="{{ expense.name }}">{{ expense.name }}
+                <option id="{{ expense.id }}" value="{{ expense.name }}">{{ expense.name }}
                   {% if expense.limit_value > 0 %} 
                     </br>
                       <i>: Limit: {{ expense.limit_value }} zł</i>

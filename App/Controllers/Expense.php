@@ -62,4 +62,86 @@ class Expense extends Authenticated
         //Flash::addMessage('Przychód dodano pomyślnie');
     }
 
+    public function testAction()
+    {
+
+        $existingNames = array("Daniel", "Denis", "Danny", "Jane");
+
+        if (isset($_POST['suggestion'])) {
+            $name = $_POST['suggestion'];
+
+            if (!empty($name)){
+                    foreach ($existingNames as $existingName) {
+                if (strpos($existingName, $name) !== false) {
+                    echo $existingName;
+                    echo "<br>";
+
+                    }
+                }
+            }
+        }
+    }
+
+    public function limitAction()
+    {
+
+        $profile = new Profile_m;
+        $id = $_SESSION['user_id'];
+
+        if (isset($_POST['expenseValue']) && isset($_POST['expenseCategory']) && isset($_POST['expenseId'])) {
+
+            $expenseValue = $_POST['expenseValue'];
+            $expenseCategory = $_POST['expenseCategory'];
+            $expenseId = $_POST['expenseId'];
+
+            $imit_expense = $profile->getLimit($id, $expenseCategory);
+            $sum_expenses = $profile->getSumOfExpenses($id, $expenseId);
+
+            // echo $expenseCategory;
+            // echo "<br>";
+            // echo $expenseValue;
+            // echo "<br>";
+            // echo $imit_expense;
+            // echo "<br>";
+            // echo $sum_expenses;
+
+            if($imit_expense > 0) {
+
+                $sumExpenceValue = $sum_expenses + $expenseValue;
+
+                if ($sumExpenceValue > $imit_expense) {
+
+                    $difference = $sumExpenceValue - $imit_expense;
+
+
+
+echo<<<END
+
+          <div class="alert alert-danger center-block" role="alert">
+                Uważaj! </br>
+                Limit dla kategorii $expenseCategory to $imit_expense zł</br>
+                W tym miesiącu wydałeś już $sum_expenses zł</br>
+                Wydając kwotę: $expenseValue zł, przekroczysz limit o $difference zł.
+          </div>
+END;
+
+                } else {
+
+                $amountToSpend = $imit_expense - $sum_expenses;
+echo<<<END
+
+          <div class="alert alert-success center-block" role="alert">
+                Przychód może zostać dodany</br>
+                W tym miesiącu wydałeś $sum_expenses zł</br>
+                Nadal masz do wydania w tym miesiącu: $amountToSpend zł
+          </div>
+END;
+
+
+                }
+
+            }
+        }
+    }
 }
+

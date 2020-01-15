@@ -22,6 +22,66 @@ class Profile_m extends \Core\Model
 
     public $errors = [];
 
+    public function getLimit($id, $expenseCategory)
+    {
+
+        $sql = 'SELECT limit_value FROM expenses_category_assigned_to_users
+                WHERE name = :expenseCategory AND user_id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->bindValue(':expenseCategory', $expenseCategory, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            $price = $row['limit_value'];
+        }
+        
+        return $price;
+    }
+
+
+    public function getSumOfExpenses($id, $expenseId)
+    {
+        $dayFirst = date('Y-m-01');
+        $dayLast = date('Y-m-t');
+
+        $sql = 'SELECT SUM(amount) 
+                FROM expenses 
+                WHERE expense_category_assigned_to_user_id = :expenseId
+                AND user_id = :id
+                AND date_of_expense >= :dayFirst 
+                AND date_of_expense <= :dayLast';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->bindValue(':expenseId', $expenseId, PDO::PARAM_STR);
+        $stmt->bindValue(':dayFirst', $dayFirst, PDO::PARAM_STR);
+        $stmt->bindValue(':dayLast', $dayLast, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            $price = $row['SUM(amount)'];
+            if ($price == "")
+            $price = 0;
+        }
+        
+        return $price;
+    }
+
+
+
+
     public function getPaymentMethods($id)
     {
         $sql = 'SELECT * FROM payment_methods_assigned_to_users WHERE user_id = :id';
