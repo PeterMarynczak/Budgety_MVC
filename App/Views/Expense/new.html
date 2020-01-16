@@ -8,38 +8,25 @@
     <script>
       $(document).ready(function (){
 
-        //get values based on selected Category from drop_down list
-        $("#kategoria").change(function(){
+
+        $("#expense_value").bind("change paste keyup", function(){
 
           //get value from input amount
             var expenseValue = document.getElementById("expense_value").value;
           //get category name based on selected option 
             var expenseCategory= $('select').find('option:selected').val();
-          //get category id based on selected option 
-            var expenseId = $(this).children(":selected").attr("id");
-            // $("#test2").html(data);
-            // $("#test").html(expenseValue);
+
             $.post("/Expense/limit", {
 
               expenseValue: expenseValue,
-              expenseCategory: expenseCategory,
-              expenseId: expenseId
+              expenseCategory: expenseCategory
 
           }, function(data, status) {
               $("#limitMessage").html(data);
           });
 
-            
         });
 
-        $("#testAjax").keyup(function(){
-          var name = $("#testAjax").val();
-            $.post("/Expense/test", {
-              suggestion: name
-          }, function(data, status) {
-              $("#test").html(data);
-          });
-        });
       });
 
     </script>
@@ -119,6 +106,7 @@
     <label for="category" class="col-md-2 col-lg-2">Kategoria:</label>
         <div class="col-md-10 col-lg-10">
             <select class="form-control" name="category" id="kategoria">
+              <!-- <option>wybierz kategorię</option> -->
               {% for expense in expense %}
                 <option id="{{ expense.id }}" value="{{ expense.name }}">{{ expense.name }}
                   {% if expense.limit_value > 0 %} 

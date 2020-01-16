@@ -58,29 +58,8 @@ class Expense extends Authenticated
             View::renderTemplate('Expense/new.html');
         }
 
-        //echo "<pre>", var_dump($income), "</pre>";
-        //Flash::addMessage('Przychód dodano pomyślnie');
     }
 
-    public function testAction()
-    {
-
-        $existingNames = array("Daniel", "Denis", "Danny", "Jane");
-
-        if (isset($_POST['suggestion'])) {
-            $name = $_POST['suggestion'];
-
-            if (!empty($name)){
-                    foreach ($existingNames as $existingName) {
-                if (strpos($existingName, $name) !== false) {
-                    echo $existingName;
-                    echo "<br>";
-
-                    }
-                }
-            }
-        }
-    }
 
     public function limitAction()
     {
@@ -88,14 +67,17 @@ class Expense extends Authenticated
         $profile = new Profile_m;
         $id = $_SESSION['user_id'];
 
-        if (isset($_POST['expenseValue']) && isset($_POST['expenseCategory']) && isset($_POST['expenseId'])) {
+        if (isset($_POST['expenseValue']) && isset($_POST['expenseCategory'])) {
 
             $expenseValue = $_POST['expenseValue'];
             $expenseCategory = $_POST['expenseCategory'];
-            $expenseId = $_POST['expenseId'];
+            //$expenseId = $_POST['expenseId'];
+            $expenseId = $profile->getExpenseId($id, $expenseCategory);
 
             $imit_expense = $profile->getLimit($id, $expenseCategory);
+
             $sum_expenses = $profile->getSumOfExpenses($id, $expenseId);
+
 
             // echo $expenseCategory;
             // echo "<br>";

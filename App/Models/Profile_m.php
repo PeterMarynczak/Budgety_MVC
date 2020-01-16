@@ -45,6 +45,55 @@ class Profile_m extends \Core\Model
         return $price;
     }
 
+    public function getExpenseId($id, $expenseCategory)
+    {
+
+        $sql = 'SELECT id FROM expenses_category_assigned_to_users
+                WHERE name = :expenseCategory AND user_id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->bindValue(':expenseCategory', $expenseCategory, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            $price = $row['id'];
+        }
+        
+        return $price;
+    }
+
+    public function getOtherIncomeIdAssignedToUSer($id)
+    {
+        $category = "Inne";
+
+        $sql = 'SELECT id FROM incomes_category_assigned_to_users
+                WHERE name = :category AND user_id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->bindValue(':category', $category, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            $price = $row['id'];
+        }
+        
+        return $price;
+    }
+
+
+
 
     public function getSumOfExpenses($id, $expenseId)
     {
@@ -298,9 +347,23 @@ class Profile_m extends \Core\Model
 
     }
 
-    public function deleteIncomeCategory($id)
+    public function deleteIncomeCategory($id, $OtherCategoryId)
     {
-        $incomeDelete = ucfirst($this->incomeDelete);
+            $incomeDelete = ucfirst($this->incomeDelete);
+
+            $sql = 'UPDATE incomes 
+                    SET income_category_assigned_to_user_id = :OtherCategoryId 
+                    WHERE income_category_assigned_to_user_id = :incomeID 
+                    AND user_id = :id';
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':incomeID', $this->incomeID, PDO::PARAM_STR);
+            $stmt->bindValue(':OtherCategoryId', $OtherCategoryId, PDO::PARAM_STR);
+            $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+            $stmt->execute();
+
 
             $sql = 'DELETE FROM incomes_category_assigned_to_users 
                     WHERE incomes_category_assigned_to_users.id = :incomeID';
@@ -418,6 +481,7 @@ class Profile_m extends \Core\Model
         }
 
     }
+
 
 }
 

@@ -243,8 +243,10 @@ class Profile extends Authenticated
 
         $newIncome = new Profile_m($_POST);
         $id = $_SESSION['user_id'];
+        $OtherCategoryId = $newIncome->getOtherIncomeIdAssignedToUSer($id);
 
-        if ($newIncome->deleteIncomeCategory($id)) {
+
+        if ($newIncome->deleteIncomeCategory($id, $OtherCategoryId)) {
 
             Flash::addMessage('Kategoria została usunięta');
             $this->redirect('/profile/show');
