@@ -27,6 +27,25 @@
 
         });
 
+        $("#kategoria").change(function(){
+
+          //get value from input amount
+            var expenseValue = document.getElementById("expense_value").value;
+          //get category name based on selected option 
+            var expenseCategory= $('select').find('option:selected').val();
+          //get category id based on selected option 
+            var expenseId = $(this).children(":selected").attr("id");
+
+            $.post("/Expense/limit", {
+
+              expenseValue: expenseValue,
+              expenseCategory: expenseCategory
+              //expenseId: expenseId
+
+          }, function(data, status) {
+              $("#limitMessage").html(data);
+          });
+        });
       });
 
     </script>
