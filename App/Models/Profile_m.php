@@ -92,6 +92,30 @@ class Profile_m extends \Core\Model
         return $price;
     }
 
+    public function getOtherExpenseIdAssignedToUSer($id)
+    {
+        $category = "Inne wydatki";
+
+        $sql = 'SELECT id FROM expenses_category_assigned_to_users
+                WHERE name = :category AND user_id = :id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->bindValue(':category', $category, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+        {
+            $price = $row['id'];
+        }
+        
+        return $price;
+    }
+
 
 
 
@@ -347,12 +371,12 @@ class Profile_m extends \Core\Model
 
     }
 
-    public function deleteIncomeCategory($id, $OtherCategoryId)
+    public function deleteIncomeCategory($id, $OtherIncomeId)
     {
             $incomeDelete = ucfirst($this->incomeDelete);
 
             $sql = 'UPDATE incomes 
-                    SET income_category_assigned_to_user_id = :OtherCategoryId 
+                    SET income_category_assigned_to_user_id = :OtherIncomeId 
                     WHERE income_category_assigned_to_user_id = :incomeID 
                     AND user_id = :id';
 
@@ -360,7 +384,7 @@ class Profile_m extends \Core\Model
             $stmt = $db->prepare($sql);
 
             $stmt->bindValue(':incomeID', $this->incomeID, PDO::PARAM_STR);
-            $stmt->bindValue(':OtherCategoryId', $OtherCategoryId, PDO::PARAM_STR);
+            $stmt->bindValue(':OtherIncomeId', $OtherIncomeId, PDO::PARAM_STR);
             $stmt->bindValue(':id', $id, PDO::PARAM_STR);
             $stmt->execute();
 
@@ -380,9 +404,23 @@ class Profile_m extends \Core\Model
 
     }
 
-    public function deleteExpenseCategory($id)
+    public function deleteExpenseCategory($id, $OtherExpenseId)
     {
-        $expenseDelete = ucfirst($this->expenseDelete);
+            $expenseDelete = ucfirst($this->expenseDelete);
+
+            $sql = 'UPDATE expenses 
+                    SET expense_category_assigned_to_user_id = :OtherExpenseId 
+                    WHERE expense_category_assigned_to_user_id = :expenseID 
+                    AND user_id = :id';
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':expenseID', $this->expenseID, PDO::PARAM_STR);
+            $stmt->bindValue(':OtherExpenseId', $OtherExpenseId, PDO::PARAM_STR);
+            $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+            $stmt->execute();
+
 
             $sql = 'DELETE FROM expenses_category_assigned_to_users 
                     WHERE expenses_category_assigned_to_users.id = :expenseID';

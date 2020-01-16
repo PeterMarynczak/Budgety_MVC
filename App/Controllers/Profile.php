@@ -243,10 +243,10 @@ class Profile extends Authenticated
 
         $newIncome = new Profile_m($_POST);
         $id = $_SESSION['user_id'];
-        $OtherCategoryId = $newIncome->getOtherIncomeIdAssignedToUSer($id);
+        $OtherIncomeId = $newIncome->getOtherIncomeIdAssignedToUSer($id);
 
 
-        if ($newIncome->deleteIncomeCategory($id, $OtherCategoryId)) {
+        if ($newIncome->deleteIncomeCategory($id, $OtherIncomeId)) {
 
             Flash::addMessage('Kategoria została usunięta');
             $this->redirect('/profile/show');
@@ -263,8 +263,9 @@ class Profile extends Authenticated
 
         $newExpense = new Profile_m($_POST);
         $id = $_SESSION['user_id'];
+        $OtherExpenseId = $newExpense->getOtherExpenseIdAssignedToUSer($id);
 
-        if ($newExpense->deleteExpenseCategory($id)) {
+        if ($newExpense->deleteExpenseCategory($id, $OtherExpenseId)) {
 
             Flash::addMessage('Kategoria została usunięta');
             $this->redirect('/profile/show');
