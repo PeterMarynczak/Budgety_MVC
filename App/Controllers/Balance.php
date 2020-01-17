@@ -86,7 +86,8 @@ class Balance extends Authenticated
 
             $arg['incomes'] = $balance->getIncomes($first_day_of_month, $last_day_of_month, $id);
             $arg['expenses'] = $balance->getExpenses($first_day_of_month, $last_day_of_month, $id);
-            $arg['pieChart'] = $balance->showBalance($first_day_of_month, $last_day_of_month, $id);
+            $arg['pieChart'] = $balance->showBalanceExpense($first_day_of_month, $last_day_of_month, $id);
+            $arg['pieChartIncome'] = $balance->showBalanceIncome($first_day_of_month, $last_day_of_month, $id);
             //echo '<pre>' , var_dump($arg['pieChart']) , '</pre>';
 
             View::renderTemplate('Balance/range.html', $arg); 
